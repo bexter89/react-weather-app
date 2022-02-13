@@ -5,16 +5,17 @@ export default function Search () {
     <div className="Search">
       <form>
         <div className="row">
-          <div className="col-8">
+          <div className="col-9">
           <input
             type="search"
             placeholder="enter a city..."
             className="form-control"
+            autoFocus="on"
           />
           </div>
-          <div className="col-4">
+          <div className="col-3">
             <input
-              className="btn btn-primary"
+              className="btn btn-primary w-100"
               type="submit"
               value="search"
             />
