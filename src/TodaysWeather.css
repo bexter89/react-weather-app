@@ -1,0 +1,44 @@
+
+.TodaysWeather h1 {
+  font-size: 24px;
+  font-weight: 100;
+  line-height: 29px;
+  margin-top: 20px;
+}
+
+.TodaysWeather ul {
+  margin: 0;
+  padding: 0;
+}
+.TodaysWeather li {
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 19px;
+  list-style: none;
+}
+.TodaysWeather img {
+  height: 75px;
+  width: 75px;
+  float: left;
+  margin-right: 10px;
+}
+
+.TodaysWeather .unit {
+  color:rgb(33, 33, 33);
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+  position: relative;
+  top: -32px;
+  margin-left: 5px;
+}
+.TodaysWeather #desc {
+  text-transform: capitalize;
+}
+.TodaysWeather .temperature {
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 75px;
+  font-weight: 400;
+  color:rgb(33, 33, 33);
+}

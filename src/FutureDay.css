@@ -1,0 +1,21 @@
+.Day {
+  margin-top: 2em;
+}
+
+.Day h3 {
+  font-size: 14px;
+}
+
+.Day #description {
+  font-size: 12px;
+}
+
+.Day #temps {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Day img {
+  width: 40px;
+}
