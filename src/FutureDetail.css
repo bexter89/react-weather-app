@@ -1,0 +1,28 @@
+.FutureDetail {
+  max-width: 500px;
+  margin: 1em auto;
+  padding: 2em;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+.FutureDetail h4 {
+  text-align: center;
+}
+.FutureDetail #description {
+  font-size: 18px;
+  margin-bottom: 1em;
+}
+
+.FutureDetail #detials {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.FutureDetail ul {
+  list-style: none;
+}
+
+.FutureDetail img {
+  width: 100px;
+}

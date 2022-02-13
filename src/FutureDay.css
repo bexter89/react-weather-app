@@ -1,21 +1,23 @@
-.Day {
+.FutureDay {
   margin-top: 2em;
 }
 
-.Day h3 {
+.FutureDay h3 {
   font-size: 14px;
+  color: black;
 }
 
-.Day #description {
+.FutureDay #description {
   font-size: 12px;
 }
 
-.Day #temps {
+.FutureDay #temps {
   font-size: 12px;
   display: flex;
   flex-direction: column;
 }
 
-.Day img {
-  width: 40px;
+.FutureDay img {
+  width: 75%;
+  margin: 0 auto;
 }

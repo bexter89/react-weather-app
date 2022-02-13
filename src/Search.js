@@ -34,14 +34,11 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
     let days = futureForecast.data.daily;
     days.shift()
     days.splice(5)
-    console.log('days in future search: ', days)
     let futureWeather = days.map(day => parseWeatherData(day))
-    console.log('future weather: ', futureWeather)
     setFutureData(futureWeather)
   }
 
   function parseTodaysWeather(data) {
-    console.log('today: ', data.data)
     get5DayForecast(data.data.coord);
     updateWeather(parseWeatherData(data.data));
     setValid(true)
@@ -52,7 +49,7 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
       let date =  new Date(timestamp * 1000);
       let hours = date.getHours();
       let minutes = "0" + date.getMinutes();
-      let timeOfDay = hours >= 12 ? ` pm` : ` am`
+      let timeOfDay = hours >= 12 ? ` PM` : ` AM`
       if (hours >= 13) {
         hours = hours - 12;
       }
