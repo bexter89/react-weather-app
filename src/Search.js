@@ -68,8 +68,11 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
       name: city,
       day: formatDate(data.dt),
       desc: data.weather[0].description,
-      icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+      weatherCode: data.weather[0].icon,
+      weatherID: data.weather[0].id,
+      weatherMain: data.weather[0].main,
     };
+
     if (!data.main) {
       cityData.humidity = Math.round(data.humidity);
       cityData.temp =  Math.round(data.temp.day);

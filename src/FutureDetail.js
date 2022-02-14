@@ -1,8 +1,8 @@
 import React from 'react';
 import './FutureDetail.css'
+import WeatherIcon from './WeatherIcon'
 
 export default function FutureDetail({ weatherData }) {
-  console.log(weatherData)
   function convertMMtoIn (mm) {
     return (mm / 25.4).toFixed(2)
   }
@@ -12,8 +12,10 @@ export default function FutureDetail({ weatherData }) {
     <div className="FutureDetail">
       <div className="row justify-content-center">
       <h4>Detail View for {weatherData.day}</h4>
-      <img src={weatherData.icon}
-      alt={`an icon depicting the weatherData as: ${weatherData.desc}`} />
+      <WeatherIcon
+        weatherCode={weatherData.weatherCode} weatherID={weatherData.weatherID}
+        weatherMain={weatherData.weatherMain}
+      />
       <span id="description" className="text-center">
         {weatherData.desc}
       </span>
@@ -30,9 +32,9 @@ export default function FutureDetail({ weatherData }) {
         </div>
         <div className="col">
           <ul>
-            <li>Wind: {weatherData.wind} mph</li>
             <li>Sunrise: {weatherData.sunrise}</li>
             <li>Sunset: {weatherData.sunset}</li>
+            <li>Wind: {weatherData.wind} mph</li>
           </ul>
         </div>
       </div>

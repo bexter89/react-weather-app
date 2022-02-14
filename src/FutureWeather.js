@@ -17,13 +17,6 @@ export default function FutureWeather ({ futureWeather }) {
       <div className="row text-center">
         <h2>Five-Day Future Forecast:</h2>
       </div>
-      { showDetailView ?
-      <div className="FutureDetails row">
-        <FutureDetail weatherData={futureDayDetails} />
-      </div>
-      :
-       null
-      }
       <div className="row align-items-center justify-content-center">
         {futureWeather ?
           futureWeather.map((day, index )=> {
@@ -41,6 +34,13 @@ export default function FutureWeather ({ futureWeather }) {
           `Loading Weather...`
         }
       </div>
+      { showDetailView ?
+      <div className="FutureDetails row">
+        <FutureDetail weatherData={futureDayDetails} />
+      </div>
+      :
+       null
+      }
     </div>
   )
 }

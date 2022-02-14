@@ -1,4 +1,5 @@
 import React from 'react';
+import WeatherIcon from './WeatherIcon'
 import './TodaysWeather.css'
 
 export default function TodaysWeather ({todaysWeather}) {
@@ -17,7 +18,10 @@ export default function TodaysWeather ({todaysWeather}) {
       <div className="row mt-3">
         <div className="col-6">
           <div className="clearfix">
-          <img src={todaysWeather.icon} alt={`an icon depicting the weather as: ${todaysWeather.desc}`} />
+          <WeatherIcon
+            weatherCode={todaysWeather.weatherCode} weatherID={todaysWeather.weatherID}
+            weatherMain={todaysWeather.weatherMain}
+          />
             <div className="float-left">
               <span className="temperature">{todaysWeather.temp}</span>
               <span className="unit">°F</span>
