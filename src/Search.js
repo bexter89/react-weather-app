@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Search({ updateWeather, setFutureData, setValid }) {
   const [city, setCity] = useState("Austin");
+  const [isValid, setIsValid]= useState(true);
+
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bafdfac4d6d7b1fc3d3952df39f393b7&units=imperial`;
 
   function handleSubmit(e) {
@@ -11,14 +13,18 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
       setValid(false)
     }
     else {
-      axios.get(apiURL)
-      .then(parseTodaysWeather)
-      .catch(err => {
-        if (err) {
-          setValid(false);
-        }
-      })
+      search();
     }
+  }
+
+  function search() {
+    axios.get(apiURL)
+    .then(parseTodaysWeather)
+    .catch(err => {
+      if (err) {
+        setValid(false);
+      }
+    })
   }
 
   function handleChange(e) {
@@ -28,6 +34,11 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
   function get5DayForecast (coords) {
     let futureForecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=alert,minutely,current,hourly&appid=bafdfac4d6d7b1fc3d3952df39f393b7&units=imperial`
     axios.get(futureForecastURL).then(getFutureData)
+  }
+
+  function handleXClick(e) {
+    e.preventDefault()
+    setIsValid(true);
   }
 
   function getFutureData(futureForecast) {
@@ -121,6 +132,15 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
               value="search"
             />
           </div>
+          <br/>
+          {isValid ?
+            null
+          :
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Please enter a valid city name</strong>
+          <button onClick={handleXClick} type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+          }
         </div>
       </form>
     </div>
