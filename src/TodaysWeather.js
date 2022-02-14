@@ -37,6 +37,7 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
           <WeatherIcon
             weatherCode={todaysWeather.weatherCode} weatherID={todaysWeather.weatherID}
             weatherMain={todaysWeather.weatherMain}
+            className="MainWeatherIcon"
           />
             <div className="float-left">
               <span className="temperature">{temp}</span>
