@@ -5,7 +5,7 @@ import './TodaysWeather.css'
 export default function TodaysWeather ({todaysWeather, setUnits}) {
   const fahTemp = todaysWeather.temp;
   const celsTemp = Math.round((fahTemp - 32) * 5/9);
-  const [temp, setTemp] = useState('')
+  const [temp, setTemp] = useState(fahTemp)
 
   function convertMMtoIn (mm) {
     return (mm / 25.4).toFixed(2)
