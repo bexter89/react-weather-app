@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WeatherIcon from './WeatherIcon'
 import './TodaysWeather.css'
 
-export default function TodaysWeather ({todaysWeather}) {
+export default function TodaysWeather ({todaysWeather, setUnits}) {
+  const fahTemp = todaysWeather.temp;
+  const celsTemp = Math.round((fahTemp - 32) * 5/9);
+  const [temp, setTemp] = useState(fahTemp)
 
   function convertMMtoIn (mm) {
     return (mm / 25.4).toFixed(2)
   }
+
+  function handleFClick(event) {
+    event.preventDefault();
+    setUnits('F')
+    setTemp(fahTemp)
+  };
+
+  function handleCClick(event) {
+    event.preventDefault();
+    setUnits('C')
+    setTemp(celsTemp)
+
+  };
 
   return (
     <div className="TodaysWeather">
@@ -15,7 +31,7 @@ export default function TodaysWeather ({todaysWeather}) {
         <li id="day">Last updated: {todaysWeather.day}, {todaysWeather.time}</li>
         <li id="desc">{todaysWeather.desc}</li>
       </ul>
-      <div className="row mt-3">
+      <div className="row mt-3 align-items-start">
         <div className="col-6">
           <div className="clearfix">
           <WeatherIcon
@@ -23,12 +39,12 @@ export default function TodaysWeather ({todaysWeather}) {
             weatherMain={todaysWeather.weatherMain}
           />
             <div className="float-left">
-              <span className="temperature">{todaysWeather.temp}</span>
-              <span className="unit">°F</span>
+              <span className="temperature">{temp}</span>
+              <span className="unit"><a href="/" onClick={handleFClick}>°F</a> | <a href="/" onClick={handleCClick}>C°</a></span>
             </div>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-6 ">
           <ul>
             {todaysWeather.rain ?
              <li>Rain: {convertMMtoIn(todaysWeather.rain[`1h`])} inches in the last hour </li> : null}

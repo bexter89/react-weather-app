@@ -1,4 +1,5 @@
 import React from 'react';
+import './WeatherIcon.css'
 
 export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
   let key = weatherID.toString();
@@ -82,8 +83,8 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
     '804': `overcast clouds: 85-100%`,
   }
 
-
   return (<img
+    className="WeatherIcon"
     src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[weatherCode]}.svg`}
     alt={`an animation of ${weatherTypes[key]} weather`}
     />)

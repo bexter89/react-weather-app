@@ -1,5 +1,10 @@
 .FutureWeather h2 {
   margin-top: 2em;
+  color: rgb(26, 25, 25);;
+  margin-bottom: 0;
   font-size: 20px;
-  text-decoration: underline;
+}
+
+.FutureWeather {
+  margin-bottom: 1em;
 }

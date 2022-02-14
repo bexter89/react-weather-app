@@ -3,18 +3,30 @@
 }
 
 .FutureDay h3 {
-  font-size: 14px;
+  font-size: 16px;
   color: black;
 }
 
 .FutureDay #description {
-  font-size: 12px;
+  font-size: 14px;
 }
 
-.FutureDay #temps {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
+.FutureDay .temps {
+  font-size: 14px;
+  font-weight: 100;
+}
+.FutureDay #high {
+  color: darkred;
+}
+
+.FutureDay #low {
+  color: royalblue;
+}
+
+.FutureDay #unit {
+  font-size: 10px;
+  position: relative;
+  top: -2px;
 }
 
 .FutureDay img {

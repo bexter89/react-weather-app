@@ -39,7 +39,11 @@
 .TodaysWeather .temperature {
   font-weight: bold;
   font-size: 64px;
-  line-height: 75px;
+  line-height: 85px;
   font-weight: 400;
   color:rgb(33, 33, 33);
+}
+
+.TodaysWeather .WeatherIcon {
+  height: 85px;
 }

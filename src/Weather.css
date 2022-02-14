@@ -5,3 +5,9 @@
   color: rgb(135, 135, 135);
   padding: 16px;
 }
+
+.Weather #helper {
+  display: block;
+  margin: 0 auto;
+  padding-top: 1em;
+}

@@ -8,6 +8,7 @@ export default function Weather () {
   const [weatherData, setWeatherData] = useState(null);
   const [fiveDayData, setFiveDayData] = useState(null);
   const [isValid, setIsValid]= useState(false)
+  const [units, setUnits] = useState('F')
 
   function updateWeather(data) {
     setWeatherData(data);
@@ -22,11 +23,11 @@ export default function Weather () {
     <Search updateWeather={updateWeather} setFutureData={setFutureData} setValid={setIsValid} />
     {isValid ?
       <>
-        <TodaysWeather todaysWeather={weatherData}/>
-        <FutureWeather futureWeather={fiveDayData}/>
+        <TodaysWeather todaysWeather={weatherData} setUnits={setUnits}/>
+        <FutureWeather futureWeather={fiveDayData} units={units}/>
       </>
     :
-      <span>Weather data for your city will appear here</span>
+      <span id="helper">Weather data for your city will appear here</span>
     }
     </div>
   )

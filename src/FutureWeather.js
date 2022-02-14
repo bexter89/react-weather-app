@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import FutureDay from './FutureDay';
-import FutureDetail from './FutureDetail'
+import FutureExpanded from './FutureExpanded'
 import './FutureWeather.css'
 
-export default function FutureWeather ({ futureWeather }) {
+export default function FutureWeather ({ futureWeather, units }) {
   const [showDetailView, setShowDetailView] = useState(false);
   const [futureDayDetails, setFutureDayDetails] = useState({});
 
   function handleClick(index) {
-    setShowDetailView(!showDetailView)
+    setShowDetailView(true)
     setFutureDayDetails(futureWeather[index])
   }
 
   return (
     <div className="FutureWeather">
       <div className="row text-center">
-        <h2>Five-Day Future Forecast:</h2>
+        <h2>Five-Day Future Forecast</h2>
       </div>
       <div className="row align-items-center justify-content-center">
         {futureWeather ?
@@ -27,6 +27,7 @@ export default function FutureWeather ({ futureWeather }) {
               setShowDetailView={setShowDetailView}
               showDetailView={showDetailView}
               setFutureDayDetails={setFutureDayDetails}
+              units={units}
             />
             </div>
           )})
@@ -35,8 +36,8 @@ export default function FutureWeather ({ futureWeather }) {
         }
       </div>
       { showDetailView ?
-      <div className="FutureDetails row">
-        <FutureDetail weatherData={futureDayDetails} />
+      <div className="row">
+        <FutureExpanded weatherData={futureDayDetails} units={units} showDetail={setShowDetailView}/>
       </div>
       :
        null

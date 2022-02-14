@@ -1,15 +1,36 @@
 import React from 'react';
-import './FutureDetail.css'
+import './FutureExpanded.css'
 import WeatherIcon from './WeatherIcon'
+import styled, { keyframes } from 'styled-components';
+import { bounceInDown } from 'react-animations';
 
-export default function FutureDetail({ weatherData }) {
+const bounceAnimation = keyframes`${bounceInDown}`;
+
+const BouncyDiv = styled.div`
+  animation: 1s ${bounceAnimation};
+`;
+
+export default function FutureExpanded({ weatherData, units, showDetail }) {
+  const fahMinTemp = weatherData.tempMin;
+  const fahMaxTemp = weatherData.tempMax;
+  const celsMinTemp = Math.round((fahMinTemp - 32) * 5/9);
+  const celsMaxTemp = Math.round((fahMaxTemp - 32) * 5/9);
+  let tempMin = (units === 'F' ? fahMinTemp : celsMinTemp)
+  let tempMax = (units === 'F' ? fahMaxTemp : celsMaxTemp)
+
   function convertMMtoIn (mm) {
     return (mm / 25.4).toFixed(2)
   }
 
+  function handleClose(e) {
+    e.preventDefault()
+    showDetail(false)
+  }
+
   return (
     <>
-    <div className="FutureDetail">
+    <BouncyDiv>
+    <div className="FutureExpanded">
       <div className="row justify-content-center">
       <h4>Detail View for {weatherData.day}</h4>
       <WeatherIcon
@@ -21,8 +42,8 @@ export default function FutureDetail({ weatherData }) {
       </span>
       <div className="col" id="details">
         <ul>
-          <li>Low: {weatherData.tempMin}°F</li>
-          <li>High: {weatherData.tempMax}°F</li>
+          <li>Low: {tempMin}°{units}</li>
+          <li>High: {tempMax}°{units}</li>
           <li>Humidity: {weatherData.humidity}%</li>
           {weatherData.rain ?
              <li>Rain: {convertMMtoIn(weatherData.rain)} inches expected</li> : null}
@@ -37,8 +58,10 @@ export default function FutureDetail({ weatherData }) {
             <li>Wind: {weatherData.wind} mph</li>
           </ul>
         </div>
+        <input type="submit" value="Close" className="btn btn-warning w-50" onClick={handleClose}/>
       </div>
     </div>
+    </BouncyDiv>
     </>
   )
 }
