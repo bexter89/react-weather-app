@@ -19,8 +19,9 @@ You can demo the application <a href="https://bexter89-react-weather.netlify.app
     <tr>
       <th>Tools & Technologies</th>
       <td>
-        <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-black?style=for-the-badge&logo=bootstrap&logoColor=blueviolet"/>
+        <img alt="Bootstrap" src="https://img.shields.io/badge/Styled%20Components-black?style=for-the-badge&logo=styledcomponents&logoColor=FFA4E7"/>
         <img alt="CRA" src="https://img.shields.io/badge/Create%20React%20App-black?style=for-the-badge&logo=createreactapp&logoColor=blue"/>
+        <img alt="Styled Components" src="https://img.shields.io/badge/Bootstrap-black?style=for-the-badge&logo=bootstrap&logoColor=blueviolet"/>
       </td>
     </tr>
     <tr>
@@ -38,3 +39,7 @@ You can demo the application <a href="https://bexter89-react-weather.netlify.app
     </tr>
   </tbody>
 </table>
+
+# Acknowledgements
+
+https://basmilius.github.io/weather-icons/index-fill.html
