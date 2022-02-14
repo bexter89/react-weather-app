@@ -4,6 +4,25 @@ import './WeatherIcon.css'
 export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
   let key = weatherID.toString();
 
+  if (weatherCode > 0 && weatherCode < 0.25) {
+    weatherCode = 0.125
+    key = weatherCode.toString();
+  }
+  if (weatherCode > 0.25 && weatherCode < 0.5) {
+    weatherCode = 0.375
+    key = weatherCode.toString();
+  }
+  if (weatherCode > 0.5 && weatherCode < 0.75) {
+    weatherCode = 0.625
+    key = weatherCode.toString();
+  }
+  if (weatherCode > 0.75 && weatherCode < 1) {
+    weatherCode = 0.875
+    key = weatherCode.toString();
+  }
+
+
+
   const codeMapping= {
     '01d' : 'clear-day',
     '01n' : 'clear-night',
@@ -23,9 +42,27 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
     '13n' : 'partly-cloudy-night-snow',
     '50d' : 'mist',
     '50n' : 'mist',
+    '0' : 'moon-new',
+    '0.125' : 'moon-waxing-crescent',
+    '0.25' : 'moon-first-quarter',
+    '0.375': 'moon-waxing-gibbous',
+    '0.5' : 'moon-full',
+    '0.625' : 'moon-waning-gibbous',
+    '0.75' : 'moon-last-quarter',
+    '0.875' : 'moon-waning-crescent',
+    '1' : 'moon-new',
   }
 
   const weatherTypes = {
+    '0' : 'new moon',
+    '0.125' : 'waxing-crescent moon',
+    '0.25' : 'first-quarter moon',
+    '0.375': 'waxing-gibbous moon',
+    '0.5' : 'full moon',
+    '0.625' : 'waning-gibbous moon',
+    '0.75' : 'last-quarter moon',
+    '0.875' : 'waning-crescent moon',
+    '1' : 'new moon',
     '200' : 'thunderstorm with light rain',
     '201' : 'thunderstorm with rain',
     '202' : 'thunderstorm with heavy rain',
@@ -86,6 +123,6 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
   return (<img
     className="WeatherIcon"
     src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[weatherCode]}.svg`}
-    alt={`an animation of ${weatherTypes[key]} weather`}
+    alt={`an animation of ${weatherTypes[key]}`}
     />)
 }

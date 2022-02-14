@@ -40,7 +40,9 @@ export default function FutureWeather ({ futureWeather, units }) {
         <FutureExpanded weatherData={futureDayDetails} units={units} showDetail={setShowDetailView}/>
       </div>
       :
-       null
+      <div className="Helper row align-items-center justify-content-center">
+       (click on any day to show an expanded weather view)
+      </div>
       }
     </div>
   )

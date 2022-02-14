@@ -81,6 +81,7 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
       cityData.wind = Math.round(data.wind_speed);
       cityData.sunrise = formatTime(data.sunrise);
       cityData.sunset = formatTime(data.sunset);
+      cityData.moonPhase = data.moon_phase;
     } else {
       cityData.time = formatTime(data.dt);
       cityData.humidity = Math.round(data.main.humidity);

@@ -11,6 +11,7 @@ const BouncyDiv = styled.div`
 `;
 
 export default function FutureExpanded({ weatherData, units, showDetail }) {
+  console.log('weather data: ', weatherData)
   const fahMinTemp = weatherData.tempMin;
   const fahMaxTemp = weatherData.tempMax;
   const celsMinTemp = Math.round((fahMinTemp - 32) * 5/9);
@@ -57,6 +58,9 @@ export default function FutureExpanded({ weatherData, units, showDetail }) {
             <li>Sunset: {weatherData.sunset}</li>
             <li>Wind: {weatherData.wind} mph</li>
           </ul>
+        </div>
+        <div className="row">
+          Moon phase: <WeatherIcon weatherCode={weatherData.moonPhase} weatherID={weatherData.moonPhase}/>
         </div>
         <input type="submit" value="Close" className="btn btn-warning w-50" onClick={handleClose}/>
       </div>
