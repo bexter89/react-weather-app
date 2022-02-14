@@ -43,4 +43,5 @@ You can demo the application <a href="https://bexter89-react-weather.netlify.app
 # Acknowledgements
 
 https://basmilius.github.io/weather-icons/index-fill.html
+<br/>
 https://github.com/FormidableLabs/react-animations
