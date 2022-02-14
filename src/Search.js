@@ -5,7 +5,7 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
   const [city, setCity] = useState("Austin");
   const [isValid, setIsValid]= useState(true);
 
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bafdfac4d6d7b1fc3d3952df39f393b7&units=imperial`;
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=898e905f7875f8205e8a422f229b472e&units=imperial`;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -32,8 +32,13 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
   }
 
   function get5DayForecast (coords) {
-    let futureForecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=alert,minutely,current,hourly&appid=bafdfac4d6d7b1fc3d3952df39f393b7&units=imperial`
-    axios.get(futureForecastURL).then(getFutureData)
+    let futureForecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=current,minutely,hourly&appid=898e905f7875f8205e8a422f229b472e&units=imperial`
+    console.log(futureForecastURL)
+    axios.get(futureForecastURL).then(getFutureData).catch(err => {
+      if (err) {
+        setValid(false);
+      }
+    })
   }
 
   function handleXClick(e) {
