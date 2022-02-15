@@ -9,24 +9,29 @@
   box-shadow: 0px 5px 5px -5px #6E6E6E;
 }
 .FutureExpanded h4 {
-  margin-bottom: 0;
+  margin: 0;
+  font-size: .9em;
   text-align: center;
   color: rgb(63, 63, 63);
 }
 .FutureExpanded #description {
   margin-bottom: .5rem;
-  font-size: 1.25em;
+  font-size: .8em;
   text-transform: capitalize;
   margin-bottom: 0;
 }
 
+.FutureExpanded .Details {
+  font-size: .8em;
+}
+
 .FutureExpanded #detials {
-  font-size: 1em;
   display: flex;
   flex-direction: column;
 }
 
 .FutureExpanded #rain, #snow {
+  font-size: .6em;
   margin-bottom: .5em;
   color: navy;
 }
@@ -40,17 +45,15 @@
   color: rgb(63, 63, 63);
   margin-bottom: 0;
 }
-.FutureExpanded .MoonPhase {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+.FutureExpanded .Moon {
+  margin-top: .5rem;
 }
 
 .FutureExpanded #moon {
   text-transform: capitalize;
   font-weight: 200;
   color: rgb(63, 63, 63);
-  font-size: 1.25em;
+  font-size: 1.125em;
 }
 
 .FutureExpanded #phase {

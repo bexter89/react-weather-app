@@ -23,12 +23,15 @@ export default function Weather () {
     <section className="Weather">
       <header className="mb-4 text-center">
         <h1>Weather App</h1>
-        <img src={umbrellaImage} className="img-fluid" alt="clipart of a male figure using an umbrella standing next to a graphic of a weather alert"/>
+        <div className="row">
+          <div className="col-3"></div>
+        <img src={umbrellaImage} className="HeaderImage" alt="clipart of a male figure using an umbrella standing next to a graphic of a weather alert"/>
+        </div>
       </header>
     <Search updateWeather={updateWeather} setFutureData={setFutureData} setShowWeather={setIsValid} />
     {isValid ?
       <>
-        <TodaysWeather todaysWeather={weatherData} setUnits={setUnits}/>
+        <TodaysWeather todaysWeather={weatherData} units={units} setUnits={setUnits}/>
         <FutureWeather futureWeather={fiveDayData} units={units}/>
       </>
     :

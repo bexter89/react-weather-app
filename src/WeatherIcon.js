@@ -1,24 +1,27 @@
 import React from 'react';
 import './WeatherIcon.css'
 
-export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
-  let key = weatherID.toString();
+export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconName, size }){
+  let key;
 
-  if (weatherCode > 0 && weatherCode < 0.25) {
-    weatherCode = 0.125
-    key = weatherCode.toString();
-  }
-  if (weatherCode > 0.25 && weatherCode < 0.5) {
-    weatherCode = 0.375
-    key = weatherCode.toString();
-  }
-  if (weatherCode > 0.5 && weatherCode < 0.75) {
-    weatherCode = 0.625
-    key = weatherCode.toString();
-  }
-  if (weatherCode > 0.75 && weatherCode < 1) {
-    weatherCode = 0.875
-    key = weatherCode.toString();
+  if (weatherCode && weatherID) {
+    key = weatherID.toString();
+    if (weatherCode > 0 && weatherCode < 0.25) {
+      weatherCode = 0.125
+      key = weatherCode.toString();
+    }
+    if (weatherCode > 0.25 && weatherCode < 0.5) {
+      weatherCode = 0.375
+      key = weatherCode.toString();
+    }
+    if (weatherCode > 0.5 && weatherCode < 0.75) {
+      weatherCode = 0.625
+      key = weatherCode.toString();
+    }
+    if (weatherCode > 0.75 && weatherCode < 1) {
+      weatherCode = 0.875;
+      key = weatherCode.toString();
+    }
   }
 
 
@@ -119,10 +122,22 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
     '803': `broken clouds: 51-84%`,
     '804': `overcast clouds: 85-100%`,
   }
-
-  return (<img
-    className="WeatherIcon img-fluid"
-    src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[weatherCode]}.svg`}
-    alt={`an animation of ${weatherTypes[key]}`}
-    />)
+  if(iconName) {
+    return (
+      <img
+      id="WeatherDetailIcon"
+      style={{width: `${size} !important`}}
+      src={`https://basmilius.github.io/weather-icons/production/fill/all/${iconName}.svg`}
+      alt={`an animation representing ${iconName}`}
+      />
+    )
+  } else {
+    return (
+      <img
+        id="WeatherIcon"
+        src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[weatherCode]}.svg`}
+        alt={`an animation of ${weatherTypes[key]}`}
+      />
+    )
+  }
 }

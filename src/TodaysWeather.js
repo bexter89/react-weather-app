@@ -2,11 +2,23 @@ import React, { useState } from 'react';
 import WeatherIcon from './WeatherIcon'
 import './TodaysWeather.css'
 
-export default function TodaysWeather ({todaysWeather, setUnits}) {
+export default function TodaysWeather ({todaysWeather, units, setUnits}) {
   console.log('todays weather: ', todaysWeather)
-  const fahTemp = todaysWeather.temp;
-  const celsTemp = Math.round((fahTemp - 32) * 5/9);
+  const [fahTemp, setFahTemp] = useState(todaysWeather.temp);
+  const [celsTemp, setCelsTemp] = useState(convertTemp(fahTemp));
   const [temp, setTemp] = useState(fahTemp)
+
+
+  const fahMinTemp = todaysWeather.tempMin;
+  const fahMaxTemp = todaysWeather.tempMax;
+  let celsMinTemp = Math.round((fahMinTemp - 32) * 5/9);
+  let celsMaxTemp = Math.round((fahMaxTemp - 32) * 5/9);
+  let tempMin = (units === 'F' ? fahMinTemp : celsMinTemp)
+  let tempMax = (units === 'F' ? fahMaxTemp : celsMaxTemp)
+
+  function convertTemp (Ftemp) {
+    return Math.round((Ftemp - 32) * 5/9);
+  }
 
   function convertMMtoIn (mm) {
     return (mm / 25.4).toFixed(2)
@@ -22,13 +34,14 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
     event.preventDefault();
     setUnits('C')
     setTemp(celsTemp)
-
   };
+
+
 
   if (todaysWeather) {
   return (
-    <section className="TodaysWeather">
-      <h1>{todaysWeather.name}</h1>
+    <article className="TodaysWeather">
+      <h1>Curruntly, in {todaysWeather.name}, its... </h1>
       <ul>
         <li id="day">Last updated: {todaysWeather.day}, {todaysWeather.time}</li>
         <li id="desc">{todaysWeather.desc}</li>
@@ -49,16 +62,24 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
         </div>
         <section className="col-6 ">
           <ul>
+            <li id="low">Daily Low: {tempMin}<span id="unit">°{units}</span></li>
+            <li id="high">Daily High: {tempMax}<span id="unit">°{units}</span></li>
             {todaysWeather.rain ?
              <li>Rain: {convertMMtoIn(todaysWeather.rain[`1h`])} inches in the last hour </li> : null}
             {todaysWeather.snow ?
             <li>Snow: {convertMMtoIn(todaysWeather.snow[`1h`])} inches in the last hour </li> : null}
-            <li>Humidity: {todaysWeather.humidity}%</li>
+            <li>Humidity:  {todaysWeather.humidity}%</li>
             <li>Wind: {todaysWeather.wind} m/hr</li>
           </ul>
         </section>
+      <section className="row align-items-center justify-content-center">
+        <WeatherIcon iconName="sunrise" size="40px"/>
+        Sunrise: {todaysWeather.sunrise}
+        <WeatherIcon iconName="sunset" size="40px"/>
+        Sunset: {todaysWeather.sunset}
+        </section>
       </section>
-    </section>
+    </article>
   )
   } else {
    return (

@@ -21,7 +21,6 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
       .get(apiURL)
       .then((data, err) => {
         if (err) {
-          console.log("error thrown");
           setShowHelperText(true);
           throw(err);
         } else {
@@ -33,7 +32,6 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
       .catch((err) => {
         if (err) {
           console.error(err);
-          console.log("error caught");
           setShowHelperText(true);
         }
       });
@@ -45,7 +43,6 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
 
   function get5DayForecast(coords) {
     let futureForecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=current,minutely,hourly&appid=898e905f7875f8205e8a422f229b472e&units=imperial`;
-    console.log(futureForecastURL);
     axios
       .get(futureForecastURL)
       .then((data, err) => {

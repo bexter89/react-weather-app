@@ -1,6 +1,6 @@
 
 .TodaysWeather h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   color: black;
   font-weight: 100;
   line-height: 1;
@@ -12,9 +12,8 @@
   padding: 0;
 }
 .TodaysWeather li {
-  font-size: 1.125em;
-  font-weight: 100;
-  line-height: 19px;
+  font-size: .9em;
+  line-height: 1.125;
   list-style: none;
 }
 
@@ -27,20 +26,42 @@
 
 .TodaysWeather .unit {
   color:rgb(33, 33, 33);
-  font-size: 16px;
+  font-size: 1em;
   line-height: 1;
   font-weight: 400;
   position: relative;
   top: -32px;
   margin-left: 5px;
 }
+
 .TodaysWeather #desc {
   text-transform: capitalize;
 }
+
 .TodaysWeather .temperature {
   font-weight: bold;
-  font-size: 64px;
-  line-height: 85px;
+  font-size: 4em;
+  line-height: 1;
   font-weight: 400;
   color:rgb(33, 33, 33);
+}
+
+.TodaysWeather .temps {
+  font-size: .8em;
+  font-weight: 100;
+  margin: 0 1em;
+}
+
+.TodaysWeather #high {
+  color: darkred;
+}
+
+.TodaysWeather #low {
+  color: royalblue;
+}
+
+.TodaysWeather #unit {
+  font-size: .7em;
+  position: relative;
+  top: -.25em;
 }

@@ -3,7 +3,6 @@ import './FutureExpanded.css'
 import WeatherIcon from './WeatherIcon'
 
 export default function FutureExpanded({ weatherData, units, setShowExpandedView, setIsFirstRender, isFirstRender,  setShowDiv, setIsMounted }) {
-  console.log('weather data: ', weatherData)
   const fahMinTemp = weatherData.tempMin;
   const fahMaxTemp = weatherData.tempMax;
   const celsMinTemp = Math.round((fahMinTemp - 32) * 5/9);
@@ -55,7 +54,7 @@ export default function FutureExpanded({ weatherData, units, setShowExpandedView
     <article className="FutureExpanded">
       <header className="row justify-content-center">
         <h4>Detail View for {weatherData.day}</h4>
-        <div className="col-5">
+        <div className="col-4">
           <WeatherIcon
             weatherCode={weatherData.weatherCode} weatherID={weatherData.weatherID}
             weatherMain={weatherData.weatherMain}
@@ -69,9 +68,8 @@ export default function FutureExpanded({ weatherData, units, setShowExpandedView
           : null}
         {weatherData.snow ?
           <span id="snow" className="text-center"> {convertMMtoIn(weatherData.snow)} inches of snow expected</span> : null}
-
       </header>
-      <section className="row">
+      <section className="Details row">
       <section className="col" id="details">
         <ul>
           <li>Low:<span id="value"> {tempMin}°{units}</span></li>

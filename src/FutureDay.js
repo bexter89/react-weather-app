@@ -30,7 +30,7 @@ export default function FutureDay({ weather, units }) {
       />
       </RollDiv>
     </div>
-    <div className="row justify-content-center">
+    <div className="row">
       <span id="description">{weather.desc}</span>
       <div className="temps">
         <span id="low">{tempMin}<span id="unit">°{units}</span></span> | <span id="high"> {tempMax}<span id="unit">°{units}</span></span>

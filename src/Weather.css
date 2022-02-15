@@ -12,6 +12,7 @@
   padding-top: 1em;
 }
 
-.Weather img {
-  max-width: 250px;
+.Weather .HeaderImage {
+  width: 250px;
+  height: auto;
 }

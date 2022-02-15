@@ -1,8 +1,7 @@
 .FutureWeather h2 {
-  margin-top: 1em;
   color: rgb(26, 25, 25);;
   margin-bottom: 0;
-  font-size: 1.75em;
+  font-size: 1.25em;
 }
 
 .FutureWeather .Helper {

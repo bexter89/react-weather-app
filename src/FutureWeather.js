@@ -46,13 +46,13 @@ export default function FutureWeather ({ futureWeather, units }) {
           className="text-center"
           onAnimationEnd={handleShowDiv}
         >
-          <img src={weatherImage} className="img-fluid mt-2" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
+          <img src={weatherImage} style={{maxWidth: '200px'}} className="img-fluid mt-2" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
         </Fade>
         </div>
         :
         null
       }
-      <div className="FiveDay row align-items-center justify-content-center">
+      <div className="FiveDay row align-items-start">
         {futureWeather ?
           futureWeather.map((day, index )=> {
           return (
