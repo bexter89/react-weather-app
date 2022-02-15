@@ -68,7 +68,6 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
   }
 
   function getFutureData(futureForecast) {
-    console.log("future forecast: ", futureForecast);
     let days = futureForecast.data.daily;
     days.shift();
     days.splice(5);

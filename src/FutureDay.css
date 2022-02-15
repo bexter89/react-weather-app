@@ -1,7 +1,13 @@
 .FutureDay {
   margin-top: 1em;
+  padding: .25em .25em;
 }
 
+.FutureDay:hover {
+  background-color: aliceblue;
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px -5px #6E6E6E;
+}
 .FutureDay h3 {
   font-size: .8em;
   color: black;

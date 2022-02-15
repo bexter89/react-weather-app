@@ -64,20 +64,20 @@ export default function FutureExpanded({ weatherData, units, setShowExpandedView
         {weatherData.desc}
       </span>
         {weatherData.rain ?
-          <span id="rain" className="text-center"> {convertMMtoIn(weatherData.rain)} inches of rain expected</span>
+          <span id="rain" className="text-center">about {convertMMtoIn(weatherData.rain)} inches of rain expected hourly</span>
           : null}
         {weatherData.snow ?
-          <span id="snow" className="text-center"> {convertMMtoIn(weatherData.snow)} inches of snow expected</span> : null}
+          <span id="snow" className="text-center">about {convertMMtoIn(weatherData.snow)} inches of snow expected hourly</span> : null}
       </header>
-      <section className="Details row">
-      <section className="col" id="details">
+      <section className="Details row justify-content-center">
+      <section className="col-5" id="details">
         <ul>
           <li>Low:<span id="value"> {tempMin}°{units}</span></li>
           <li>High:<span id="value"> {tempMax}°{units}</span></li>
           <li>Humidity:<span id="value"> {weatherData.humidity}%</span></li>
         </ul>
       </section>
-      <section className="col">
+      <section className="col-5">
         <ul>
           <li>Sunrise:<span id="value"> {weatherData.sunrise}</span></li>
           <li>Sunset:<span id="value"> {weatherData.sunset}</span></li>

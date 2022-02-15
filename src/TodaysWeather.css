@@ -1,4 +1,10 @@
-
+.TodaysWeather {
+  background-color: aliceblue;
+  border-radius: 10px;
+  padding: .25em 1em;
+  padding-bottom: 0;
+  margin: 1em 0;
+}
 .TodaysWeather h1 {
   font-size: 1.5em;
   color: black;

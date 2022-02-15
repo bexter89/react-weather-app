@@ -3,7 +3,6 @@ import WeatherIcon from './WeatherIcon'
 import './TodaysWeather.css'
 
 export default function TodaysWeather ({todaysWeather, units, setUnits}) {
-  console.log('todays weather: ', todaysWeather)
   const [fahTemp, setFahTemp] = useState(todaysWeather.temp);
   const [celsTemp, setCelsTemp] = useState(convertTemp(fahTemp));
   const [temp, setTemp] = useState(fahTemp)
@@ -62,8 +61,8 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
         </div>
         <section className="col-6 ">
           <ul>
-            <li id="low">Daily Low: {tempMin}<span id="unit">°{units}</span></li>
-            <li id="high">Daily High: {tempMax}<span id="unit">°{units}</span></li>
+            <li>Daily Low: <span id="low">{tempMin}<span id="unit">°{units}</span></span></li>
+            <li>Daily High: <span id="high">{tempMax}<span id="unit">°{units}</span></span></li>
             {todaysWeather.rain ?
              <li>Rain: {convertMMtoIn(todaysWeather.rain[`1h`])} inches in the last hour </li> : null}
             {todaysWeather.snow ?

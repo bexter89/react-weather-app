@@ -1,25 +1,32 @@
-
 html {
-  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-position:center;
+  background: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#root {
+  margin: 0 auto;
+  max-width: 650px;
+  background: transparent;
+  display: block;
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+.App {
+  padding: 1rem;
+  overflow-x:none
 }
 
 body {
   font-family: 'Quicksand', sans-serif;
   background: none;
-  margin: 2em auto;
 }
 
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
   color: black;
-}
-
-.App {
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .App footer {
