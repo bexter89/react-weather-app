@@ -68,7 +68,7 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
             {todaysWeather.snow ?
             <li>Snow: {convertMMtoIn(todaysWeather.snow[`1h`])} inches in the last hour </li> : null}
             <li>Humidity:  {todaysWeather.humidity}%</li>
-            <li>Wind: {todaysWeather.wind} m/hr</li>
+            <li>Wind: {todaysWeather.wind} mph</li>
           </ul>
         </section>
       <section className="row align-items-center justify-content-center">
