@@ -10,10 +10,13 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
 
   const fahMinTemp = todaysWeather.tempMin;
   const fahMaxTemp = todaysWeather.tempMax;
+  const fahTempFeels = todaysWeather.tempFeels;
   let celsMinTemp = Math.round((fahMinTemp - 32) * 5/9);
   let celsMaxTemp = Math.round((fahMaxTemp - 32) * 5/9);
+  let celsTempFeels = Math.round((fahTempFeels - 32) * 5/9);
   let tempMin = (units === 'F' ? fahMinTemp : celsMinTemp)
   let tempMax = (units === 'F' ? fahMaxTemp : celsMaxTemp)
+  let feelsTemp = (units === 'F' ? fahTempFeels : celsTempFeels)
 
   function convertTemp (Ftemp) {
     return Math.round((Ftemp - 32) * 5/9);
@@ -35,14 +38,13 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
     setTemp(celsTemp)
   };
 
-
-
   if (todaysWeather) {
   return (
     <article className="TodaysWeather">
-      <h1>Curruntly, in {todaysWeather.name}, its... </h1>
+      <h1>In <span id="cityName">{todaysWeather.name}</span>, its... </h1>
       <ul>
-        <li id="day">Last updated: {todaysWeather.day}, {todaysWeather.time}</li>
+        <li id="inputCityDateTime">{todaysWeather.inputTime} on {todaysWeather.date}</li>
+        <li id="updatedOn">Last updated: {todaysWeather.day} at {todaysWeather.time} local time</li>
         <li id="desc">{todaysWeather.desc}</li>
       </ul>
       <section className="row mt-3 align-items-start">
@@ -61,6 +63,7 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
         </div>
         <section className="col-6 ">
           <ul>
+            <li>Feels Like: {feelsTemp}<span id="unit">°{units}</span></li>
             <li>Daily Low: <span id="low">{tempMin}<span id="unit">°{units}</span></span></li>
             <li>Daily High: <span id="high">{tempMax}<span id="unit">°{units}</span></span></li>
             {todaysWeather.rain ?

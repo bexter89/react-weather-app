@@ -5,12 +5,13 @@ import './FutureWeather.css'
 import weatherImage from './assets/weather.svg'
 import Fade from './StyledElements/Fade'
 
-export default function FutureWeather ({ futureWeather, units }) {
+export default function FutureWeather ({ futureWeather, units, closeExpandedView, setCloseExpandedView }) {
   const [futureDayDetails, setFutureDayDetails] = useState({});
   const [isFirstRender, setIsFirstRender] = useState(true)
   const [showExpandedView, setShowExpandedView] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [showDiv, setShowDiv] = useState(true);
+
 
   //on animation end
   function handleShowDiv() {
@@ -23,6 +24,7 @@ export default function FutureWeather ({ futureWeather, units }) {
 
   //on day click
   function handleClick(index) {
+    setCloseExpandedView(false);
     setShowExpandedView(true);
     setFutureDayDetails(futureWeather[index]);
     if (isFirstRender) {
@@ -67,7 +69,7 @@ export default function FutureWeather ({ futureWeather, units }) {
           `Loading Weather...`
         }
       </div>
-      { showExpandedView ?
+      { showExpandedView && !closeExpandedView ?
       <div className="Expanded row">
         <FutureExpanded
           weatherData={futureDayDetails}

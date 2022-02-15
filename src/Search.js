@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import  { parseTodaysWeatherData, parseFutureData } from './API Helpers/dataHandlers'
 
-export default function Search({ updateWeather, setFutureData, setShowWeather }) {
+export default function Search({ updateWeather, setFutureData, setShowWeather, setShowExpanded, setCloseExpandedView }) {
   const [city, setCity] = useState("Austin");
   const [showHelperText, setShowHelperText] = useState(false);
 
@@ -27,6 +28,7 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
           parseTodaysWeather(data);
           setShowWeather(true);
           setShowHelperText(false);
+          setCloseExpandedView(true)
         }
       })
       .catch((err) => {
@@ -71,80 +73,17 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
     let days = futureForecast.data.daily;
     days.shift();
     days.splice(5);
-    let futureWeather = days.map((day) => parseWeatherData(day));
+    let futureWeather = days.map((dailyData) => parseFutureData(city, dailyData));
     setFutureData(futureWeather);
   }
 
   function parseTodaysWeather(data) {
     get5DayForecast(data.data.coord);
-    updateWeather(parseWeatherData(data.data));
+    let todaysWeather = parseTodaysWeatherData(city, data.data)
+    updateWeather(todaysWeather);
     setShowWeather(true);
   }
 
-  function parseWeatherData(data) {
-    function formatTime(timestamp) {
-      let date = new Date(timestamp * 1000);
-      let hours = date.getHours();
-      let minutes = "0" + date.getMinutes();
-      let timeOfDay = hours >= 12 ? ` PM` : ` AM`;
-      if (hours >= 13) {
-        hours = hours - 12;
-      }
-      let formattedTime = hours + ":" + minutes.substr(-2) + timeOfDay;
-      return formattedTime;
-    }
-
-    function formatDate(timestamp) {
-      let week = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      let date = new Date(timestamp * 1000);
-      let day = date.getDay();
-      return week[day];
-    }
-
-    let cityData = {
-      name: city,
-      day: formatDate(data.dt),
-      desc: data.weather[0].description,
-      weatherCode: data.weather[0].icon,
-      weatherID: data.weather[0].id,
-      weatherMain: data.weather[0].main,
-    };
-
-    if (!data.main) {
-      cityData.humidity = Math.round(data.humidity);
-      cityData.temp = Math.round(data.temp.day);
-      cityData.tempMin = Math.round(data.temp.min);
-      cityData.tempMax = Math.round(data.temp.max);
-      cityData.wind = Math.round(data.wind_speed);
-      cityData.sunrise = formatTime(data.sunrise);
-      cityData.sunset = formatTime(data.sunset);
-      cityData.moonPhase = data.moon_phase;
-    } else {
-      cityData.time = formatTime(data.dt);
-      cityData.humidity = Math.round(data.main.humidity);
-      cityData.temp = Math.round(data.main.temp);
-      cityData.tempMin = Math.round(data.main.temp_min);
-      cityData.tempMax = Math.round(data.main.temp_max);
-      cityData.wind = data.wind.speed;
-      cityData.sunrise = formatTime(data.sys.sunrise);
-      cityData.sunset = formatTime(data.sys.sunset);
-    }
-    if (data.rain) {
-      cityData.rain = data.rain;
-    }
-    if (data.snow) {
-      cityData.snow = data.snow;
-    }
-    return cityData;
-  }
 
   return (
     <section className="Search">

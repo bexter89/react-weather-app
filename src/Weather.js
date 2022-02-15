@@ -8,6 +8,7 @@ import umbrellaImage from './assets/umbrella.svg'
 export default function Weather () {
   const [weatherData, setWeatherData] = useState(null);
   const [fiveDayData, setFiveDayData] = useState(null);
+  const [closeExpandedView, setCloseExpandedView] = useState(false)
   const [isValid, setIsValid]= useState(false)
   const [units, setUnits] = useState('F')
 
@@ -28,11 +29,25 @@ export default function Weather () {
         <img src={umbrellaImage} className="HeaderImage" alt="clipart of a male figure using an umbrella standing next to a graphic of a weather alert"/>
         </div>
       </header>
-    <Search updateWeather={updateWeather} setFutureData={setFutureData} setShowWeather={setIsValid} />
+      <Search
+        updateWeather={updateWeather}
+        setFutureData={setFutureData}
+        setShowWeather={setIsValid}
+        setCloseExpandedView={setCloseExpandedView}
+      />
     {isValid ?
       <>
-        <TodaysWeather todaysWeather={weatherData} units={units} setUnits={setUnits}/>
-        <FutureWeather futureWeather={fiveDayData} units={units}/>
+        <TodaysWeather
+          todaysWeather={weatherData}
+          units={units}
+          setUnits={setUnits}
+        />
+        <FutureWeather
+          futureWeather={fiveDayData}
+          units={units}
+          closeExpandedView={closeExpandedView}
+          setCloseExpandedView={setCloseExpandedView}
+        />
       </>
     :
       <span id="helper">Weather data for your city will appear here</span>

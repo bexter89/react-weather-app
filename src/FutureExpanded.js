@@ -64,34 +64,34 @@ export default function FutureExpanded({ weatherData, units, setShowExpandedView
         {weatherData.desc}
       </span>
         {weatherData.rain ?
-          <span id="rain" className="text-center">about {convertMMtoIn(weatherData.rain)} inches of rain expected hourly</span>
+          <span id="rain" className="text-center">about {convertMMtoIn(weatherData.rain)} inches of rain expected</span>
           : null}
         {weatherData.snow ?
-          <span id="snow" className="text-center">about {convertMMtoIn(weatherData.snow)} inches of snow expected hourly</span> : null}
+          <span id="snow" className="text-center">about {convertMMtoIn(weatherData.snow)} inches of snow expected</span> : null}
       </header>
       <section className="Details row justify-content-center">
-      <section className="col-5" id="details">
-        <ul>
-          <li>Low:<span id="value"> {tempMin}°{units}</span></li>
-          <li>High:<span id="value"> {tempMax}°{units}</span></li>
-          <li>Humidity:<span id="value"> {weatherData.humidity}%</span></li>
-        </ul>
-      </section>
-      <section className="col-5">
-        <ul>
-          <li>Sunrise:<span id="value"> {weatherData.sunrise}</span></li>
-          <li>Sunset:<span id="value"> {weatherData.sunset}</span></li>
-          <li>Wind:<span id="value"> {weatherData.wind} mph</span></li>
-        </ul>
-      </section>
+        <section className="col-5" id="details">
+          <ul>
+            <li>Low:<span id="value"> {tempMin}°{units}</span></li>
+            <li>High:<span id="value"> {tempMax}°{units}</span></li>
+            <li>Humidity:<span id="value"> {weatherData.humidity}%</span></li>
+          </ul>
+        </section>
+        <section className="col-5">
+          <ul>
+            <li>Sunrise:<span id="value"> {weatherData.sunrise}</span></li>
+            <li>Sunset:<span id="value"> {weatherData.sunset}</span></li>
+            <li>Wind:<span id="value"> {weatherData.wind} mph</span></li>
+          </ul>
+        </section>
       </section>
       <section className="Moon row justify-content-center">
-          <h4 id="moon">Moon Phase:</h4>
+        <h4 id="moon">Moon Phase:</h4>
         <header className="MoonPhase col-3">
           <WeatherIcon weatherCode={weatherData.moonPhase} weatherID={weatherData.moonPhase}/>
         </header>
         <span className="text-center" id="phase">{moonPhases[moon]}</span>
-      <input type="submit" value="Close" className="btn btn-warning w-50" onClick={handleClose}/>
+        <input type="submit" value="Close" className="btn btn-warning w-50" onClick={handleClose}/>
       </section>
     </article>
     </>
