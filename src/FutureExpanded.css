@@ -3,20 +3,24 @@
   margin: 0 auto;
   margin-top: .5em;
   padding: .75em;
-  background-color: aliceblue;
+  border: 1px solid goldenrod;
   border-radius: 1rem;
-  box-shadow: 0px 5px 5px -5px #6E6E6E;
+  box-shadow: 0px 5px 10px -3px #6E6E6E;
 }
 .FutureExpanded h4 {
   margin: 0;
-  font-size: .9em;
+  font-size: .95em;
   text-align: center;
   color: rgb(63, 63, 63);
   position: relative;
-  bottom: -10px;
+  bottom: -8px;
 }
 .FutureExpanded #description {
-  font-size: .8em;
+  position: relative;
+  top: -2px;
+  color: black;
+  font-weight: 700;
+  font-size: .82em;
   text-transform: capitalize;
   margin-bottom: 0;
 }
@@ -25,14 +29,14 @@
   font-size: .8em;
 }
 
-.FutureExpanded #detials {
-
+.FutureExpanded #details {
   display: flex;
   flex-direction: column;
 }
 
 .FutureExpanded #rain, #snow {
   font-size: .6em;
+  margin-top: 0;
   margin-bottom: .5em;
   color: navy;
 }

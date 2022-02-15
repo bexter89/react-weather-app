@@ -127,7 +127,7 @@ function parseTodaysWeatherData(cityName, data) {
     tempFeels : Math.round(data.main.feels_like),
     tempMin : Math.round(data.main.temp_min),
     tempMax : Math.round(data.main.temp_max),
-    wind : data.wind.speed,
+    wind : Math.round(data.wind.speed),
     sunrise : sunriseTime[1],
     sunset : sunsetTime[1],
   }
@@ -163,7 +163,7 @@ function parseFutureData(cityName, data) {
     tempFeels : Math.round(data.feels_like.day),
     tempMin : Math.round(data.temp.min),
     tempMax : Math.round(data.temp.max),
-    wind : data.wind_speed,
+    wind : Math.round(data.wind_speed),
     sunrise : sunriseTime[1],
     sunset : sunsetTime[1],
     moonPhase : data.moon_phase

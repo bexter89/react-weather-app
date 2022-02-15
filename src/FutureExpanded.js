@@ -3,10 +3,13 @@ import './FutureExpanded.css'
 import WeatherIcon from './WeatherIcon'
 
 export default function FutureExpanded({ weatherData, units, setShowExpandedView, setIsFirstRender, isFirstRender,  setShowDiv, setIsMounted }) {
+  const avgTempFah = weatherData.temp;
+  const avgTempCels = Math.round((avgTempFah - 32) * 5/9);
   const fahMinTemp = weatherData.tempMin;
   const fahMaxTemp = weatherData.tempMax;
   const celsMinTemp = Math.round((fahMinTemp - 32) * 5/9);
   const celsMaxTemp = Math.round((fahMaxTemp - 32) * 5/9);
+  let avgTemp = (units === 'F' ? avgTempFah : avgTempCels)
   let tempMin = (units === 'F' ? fahMinTemp : celsMinTemp)
   let tempMax = (units === 'F' ? fahMaxTemp : celsMaxTemp)
 
@@ -61,13 +64,13 @@ export default function FutureExpanded({ weatherData, units, setShowExpandedView
           />
         </div>
       <span id="description" className="text-center">
-        {weatherData.desc}
+      {avgTemp}°{units}  {weatherData.desc}
       </span>
         {weatherData.rain ?
-          <span id="rain" className="text-center">about {convertMMtoIn(weatherData.rain)} inches of rain expected</span>
+          <span id="rain" className="text-center">about {convertMMtoIn(weatherData.rain)} inches of rain expected hourly, while conditions last.</span>
           : null}
         {weatherData.snow ?
-          <span id="snow" className="text-center">about {convertMMtoIn(weatherData.snow)} inches of snow expected</span> : null}
+          <span id="snow" className="text-center">about {convertMMtoIn(weatherData.snow)} inches of snow expected hourly, while conditions last.</span> : null}
       </header>
       <section className="Details row justify-content-center">
         <section className="col-5" id="details">

@@ -61,17 +61,17 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
             </div>
           </div>
         </div>
-        <section className="col-6 ">
+        <section className="WeatherDetails col-6 ">
           <ul>
-            <li>Feels Like: {feelsTemp}<span id="unit">°{units}</span></li>
-            <li>Daily Low: <span id="low">{tempMin}<span id="unit">°{units}</span></span></li>
-            <li>Daily High: <span id="high">{tempMax}<span id="unit">°{units}</span></span></li>
+            <li><span id="detailKey">Feels Like:</span> {feelsTemp}<span id="unit">°{units}</span></li>
+            <li><span id="detailKey">Daily Low:</span> <span id="low">{tempMin}<span id="unit">°{units}</span></span></li>
+            <li><span id="detailKey">Daily High:</span> <span id="high">{tempMax}<span id="unit">°{units}</span></span></li>
             {todaysWeather.rain ?
-             <li>Rain: {convertMMtoIn(todaysWeather.rain[`1h`])} inches in the last hour </li> : null}
+             <li><span id="detailKey">Rain:</span> {convertMMtoIn(todaysWeather.rain[`1h`])} inches in the last hour </li> : null}
             {todaysWeather.snow ?
-            <li>Snow: {convertMMtoIn(todaysWeather.snow[`1h`])} inches in the last hour </li> : null}
-            <li>Humidity:  {todaysWeather.humidity}%</li>
-            <li>Wind: {todaysWeather.wind} mph</li>
+            <li><span id="detailKey">Snow:</span> {convertMMtoIn(todaysWeather.snow[`1h`])} inches in the last hour </li> : null}
+            <li><span id="detailKey">Humidity:</span> {todaysWeather.humidity}%</li>
+            <li><span id="detailKey">Wind:</span> {todaysWeather.wind} mph</li>
           </ul>
         </section>
       <section className="row align-items-center justify-content-center">

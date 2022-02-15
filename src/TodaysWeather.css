@@ -1,5 +1,5 @@
 .TodaysWeather {
-  background-color: #F2F2F2;
+  background-color: aliceblue;
   border-radius: 8px;
   padding: .25em 1em;
   padding-bottom: 0;
@@ -19,7 +19,7 @@
 }
 .TodaysWeather li {
   font-size: .9em;
-  line-height: 1.125;
+  line-height: 1.25;
   list-style: none;
 }
 
@@ -35,6 +35,9 @@
   margin-right: 10px;
 }
 
+.TodaysWeather #detailKey {
+  color:black;
+}
 .TodaysWeather .unit {
   color:rgb(33, 33, 33);
   font-size: 1em;
