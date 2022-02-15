@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import FutureDay from './FutureDay';
-import ExpandedContainer from './ExpandedContainer'
+import FutureExpanded from './FutureExpanded'
 import './FutureWeather.css'
 import weatherImage from './assets/weather.svg'
+import Fade from './StyledElements/Fade'
 
 export default function FutureWeather ({ futureWeather, units }) {
-  const [showDetailView, setShowDetailView] = useState(false);
   const [futureDayDetails, setFutureDayDetails] = useState({});
+  const [showExpandedView, setShowExpandedView] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [showDiv, setShowDiv] = useState(true);
 
   function handleClick(index) {
-    setShowDetailView(true)
-    setFutureDayDetails(futureWeather[index])
+    setShowExpandedView(true);
+    setFutureDayDetails(futureWeather[index]);
+    setIsMounted(!isMounted);
+    if (!showDiv) setShowDiv(true);
+  }
+
+  function hanldeShowDiv() {
+    if (!isMounted){
+      setShowDiv(false)
+    }
   }
 
   return (
@@ -18,9 +29,19 @@ export default function FutureWeather ({ futureWeather, units }) {
       <header className="row text-center">
         <h2>Five-Day Future Forecast</h2>
       </header>
-      <div className="ImageContainer row justify-content-center">
-        <img src={weatherImage} className="img-fluid mt-2" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
-      </div>
+      {showDiv ?
+        <div className="ImageContainer row justify-content-center">
+        <Fade
+          out={showExpandedView}
+          className="text-center"
+          onAnimationEnd={hanldeShowDiv}
+        >
+          <img src={weatherImage} className="img-fluid mt-2" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
+        </Fade>
+        </div>
+        :
+        null
+      }
       <div className="FiveDay row align-items-center justify-content-center">
         {futureWeather ?
           futureWeather.map((day, index )=> {
@@ -28,9 +49,6 @@ export default function FutureWeather ({ futureWeather, units }) {
             <div className="FutureDay col text-center" key={day.day} onClick={()=>{handleClick(index)}}>
             <FutureDay
               weather={day}
-              setShowDetailView={setShowDetailView}
-              showDetailView={showDetailView}
-              setFutureDayDetails={setFutureDayDetails}
               units={units}
             />
             </div>
@@ -39,9 +57,16 @@ export default function FutureWeather ({ futureWeather, units }) {
           `Loading Weather...`
         }
       </div>
-      { showDetailView ?
+      { showExpandedView ?
       <div className="Expanded row">
-        <ExpandedContainer weatherData={futureDayDetails} units={units} showDetail={setShowDetailView}/>
+        <FutureExpanded
+          weatherData={futureDayDetails}
+          units={units}
+          setShowExpandedView={setShowExpandedView}
+          showDiv={setShowDiv}
+          setShowDiv={setShowDiv}
+          setIsMounted={setIsMounted}
+        />
       </div>
       :
       <div className="Helper row align-items-center justify-content-center">

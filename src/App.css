@@ -4,7 +4,6 @@ html, body {
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-position:center;
-  height: 100vh;
 }
 body {
   font-family: 'Quicksand', sans-serif;
@@ -12,16 +11,18 @@ body {
 
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
+  color: black;
 }
 
 .App {
   max-width: 650px;
-  margin: 5rem auto;
+  margin: 2rem auto;
 }
 
 .App footer {
   font-size:.75em;
   margin: 10px 0;
+  margin-bottom: 1rem;
 }
 
 .App img {

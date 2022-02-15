@@ -1,8 +1,8 @@
 .Weather {
   border: 1px solid #dadde1;
   border-radius: 5px;
-  color: rgb(135, 135, 135);
   padding: 16px;
+  color: rgb(135, 135, 135);
   background-color: white;
 }
 

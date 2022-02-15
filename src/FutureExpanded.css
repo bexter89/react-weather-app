@@ -17,12 +17,18 @@
   margin-bottom: .5rem;
   font-size: 1.25em;
   text-transform: capitalize;
+  margin-bottom: 0;
 }
 
 .FutureExpanded #detials {
   font-size: 1em;
   display: flex;
   flex-direction: column;
+}
+
+.FutureExpanded #rain, #snow {
+  margin-bottom: .5em;
+  color: navy;
 }
 
 .FutureExpanded #value {

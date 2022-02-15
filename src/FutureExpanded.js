@@ -2,7 +2,7 @@ import React from 'react';
 import './FutureExpanded.css'
 import WeatherIcon from './WeatherIcon'
 
-export default function FutureExpanded({ weatherData, units, showDetail }) {
+export default function FutureExpanded({ weatherData, units, setShowExpandedView, showDiv, setShowDiv, setIsMounted }) {
   console.log('weather data: ', weatherData)
   const fahMinTemp = weatherData.tempMin;
   const fahMaxTemp = weatherData.tempMax;
@@ -17,7 +17,9 @@ export default function FutureExpanded({ weatherData, units, showDetail }) {
 
   function handleClose(e) {
     e.preventDefault()
-    showDetail(false)
+    setShowExpandedView(false)
+    setShowDiv(true)
+    setIsMounted(true)
   }
 
   let moon = weatherData.moonPhase;
@@ -60,13 +62,13 @@ export default function FutureExpanded({ weatherData, units, showDetail }) {
         </div>
       <span id="description" className="text-center">
         {weatherData.desc}
-      <ul>
-        {weatherData.rain ?
-          <li>Rain:<span id="value"> {convertMMtoIn(weatherData.rain)} inches expected</span></li> : null}
-        {weatherData.snow ?
-          <li>Snow:<span id="value"> {convertMMtoIn(weatherData.snow)} inches expected</span></li> : null}
-      </ul>
       </span>
+        {weatherData.rain ?
+          <span id="rain" className="text-center"> {convertMMtoIn(weatherData.rain)} inches of rain expected</span>
+          : null}
+        {weatherData.snow ?
+          <span id="snow" className="text-center"> {convertMMtoIn(weatherData.snow)} inches of snow expected</span> : null}
+
       </header>
       <section className="row">
       <section className="col" id="details">
