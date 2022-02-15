@@ -3,6 +3,7 @@ import WeatherIcon from './WeatherIcon'
 import './TodaysWeather.css'
 
 export default function TodaysWeather ({todaysWeather, setUnits}) {
+  console.log('todays weather: ', todaysWeather)
   const fahTemp = todaysWeather.temp;
   const celsTemp = Math.round((fahTemp - 32) * 5/9);
   const [temp, setTemp] = useState(fahTemp)
@@ -24,6 +25,7 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
 
   };
 
+  if (todaysWeather) {
   return (
     <div className="TodaysWeather">
       <h1>{todaysWeather.name}</h1>
@@ -58,4 +60,7 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
       </div>
     </div>
   )
+  } else {
+   return 'loading weather...'
+  }
 }

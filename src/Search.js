@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Search({ updateWeather, setFutureData, setValid }) {
+export default function Search({ updateWeather, setFutureData, setShowWeather }) {
   const [city, setCity] = useState("Austin");
-  const [isValid, setIsValid] = useState(true);
+  const [showHelperText, setShowHelperText] = useState(false);
 
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=898e905f7875f8205e8a422f229b472e&units=imperial`;
 
   function handleSubmit(e) {
     e.preventDefault();
     if (city.length <= 2) {
-      setValid(false);
-      setIsValid(false);
+      setShowHelperText(true);
     } else {
       search();
     }
@@ -20,21 +19,22 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
   function search() {
     axios
       .get(apiURL)
-      .then((err, data) => {
+      .then((data, err) => {
         if (err) {
           console.log("error thrown");
-          setValid(false);
-          setIsValid(false);
-          throw err;
+          setShowHelperText(true);
+          throw(err);
+        } else {
+          parseTodaysWeather(data);
+          setShowWeather(true);
+          setShowHelperText(false);
         }
-        parseTodaysWeather(data);
       })
       .catch((err) => {
         if (err) {
           console.error(err);
           console.log("error caught");
-          setIsValid(false);
-          setValid(false);
+          setShowHelperText(true);
         }
       });
   }
@@ -48,16 +48,18 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
     console.log(futureForecastURL);
     axios
       .get(futureForecastURL)
-      .then((err, data) => {
+      .then((data, err) => {
         if (err) {
-          setValid(false);
-          throw err;
+          throw(err);
+        } else {
+          getFutureData(data);
+          setShowWeather(true);
+          setShowHelperText(false);
         }
-        getFutureData(data);
       })
       .catch((err) => {
         if (err) {
-          setValid(false);
+          setShowWeather(false);
           console.error(err);
         }
       });
@@ -65,7 +67,7 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
 
   function handleXClick(e) {
     e.preventDefault();
-    setIsValid(true);
+    setShowHelperText(false);
   }
 
   function getFutureData(futureForecast) {
@@ -80,7 +82,7 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
   function parseTodaysWeather(data) {
     get5DayForecast(data.data.coord);
     updateWeather(parseWeatherData(data.data));
-    setValid(true);
+    setShowWeather(true);
   }
 
   function parseWeatherData(data) {
@@ -170,7 +172,7 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
           </div>
         </div>
       </form>
-      {isValid ? null : (
+      {showHelperText ? (
         <div className="Helper mt-1 row justify-content-center">
           <div className="col text-center">
             <div
@@ -181,14 +183,17 @@ export default function Search({ updateWeather, setFutureData, setValid }) {
               <button
                 onClick={handleXClick}
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="alert"
                 aria-label="Close"
               ></button>
             </div>
           </div>
         </div>
-      )}
+      )
+      :
+      null
+      }
     </div>
   );
 }

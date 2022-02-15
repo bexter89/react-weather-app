@@ -20,7 +20,7 @@ export default function Weather () {
 
   return (
     <div className="Weather">
-    <Search updateWeather={updateWeather} setFutureData={setFutureData} setValid={setIsValid} />
+    <Search updateWeather={updateWeather} setFutureData={setFutureData} setShowWeather={setIsValid} />
     {isValid ?
       <>
         <TodaysWeather todaysWeather={weatherData} setUnits={setUnits}/>
