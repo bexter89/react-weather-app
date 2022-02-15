@@ -1,14 +1,6 @@
 import React from 'react';
 import './FutureExpanded.css'
 import WeatherIcon from './WeatherIcon'
-import styled, { keyframes } from 'styled-components';
-import { bounceInDown } from 'react-animations';
-
-const bounceAnimation = keyframes`${bounceInDown}`;
-
-const BouncyDiv = styled.div`
-  animation: 1s ${bounceAnimation};
-`;
 
 export default function FutureExpanded({ weatherData, units, showDetail }) {
   console.log('weather data: ', weatherData)
@@ -57,47 +49,50 @@ export default function FutureExpanded({ weatherData, units, showDetail }) {
 
   return (
     <>
-    <BouncyDiv>
-    <div className="FutureExpanded">
-      <div className="row justify-content-center">
-      <h4>Detail View for {weatherData.day}</h4>
-      <WeatherIcon
-        weatherCode={weatherData.weatherCode} weatherID={weatherData.weatherID}
-        weatherMain={weatherData.weatherMain}
-        className="LargeIcon"
-      />
+    <article className="FutureExpanded">
+      <header className="row justify-content-center">
+        <h4>Detail View for {weatherData.day}</h4>
+        <div className="col-5">
+          <WeatherIcon
+            weatherCode={weatherData.weatherCode} weatherID={weatherData.weatherID}
+            weatherMain={weatherData.weatherMain}
+          />
+        </div>
       <span id="description" className="text-center">
         {weatherData.desc}
+      <ul>
+        {weatherData.rain ?
+          <li>Rain:<span id="value"> {convertMMtoIn(weatherData.rain)} inches expected</span></li> : null}
+        {weatherData.snow ?
+          <li>Snow:<span id="value"> {convertMMtoIn(weatherData.snow)} inches expected</span></li> : null}
+      </ul>
       </span>
-      <div className="col" id="details">
+      </header>
+      <section className="row">
+      <section className="col" id="details">
         <ul>
           <li>Low:<span id="value"> {tempMin}°{units}</span></li>
           <li>High:<span id="value"> {tempMax}°{units}</span></li>
           <li>Humidity:<span id="value"> {weatherData.humidity}%</span></li>
-          {weatherData.rain ?
-             <li>Rain:<span id="value"> {convertMMtoIn(weatherData.rain)} inches expected</span></li> : null}
-          {weatherData.snow ?
-            <li>Snow:<span id="value"> {convertMMtoIn(weatherData.snow)} inches expected</span></li> : null}
         </ul>
-        </div>
-        <div className="col">
-          <ul>
-            <li>Sunrise:<span id="value"> {weatherData.sunrise}</span></li>
-            <li>Sunset:<span id="value"> {weatherData.sunset}</span></li>
-            <li>Wind:<span id="value"> {weatherData.wind} mph</span></li>
-          </ul>
-        </div>
-        <div className="row">
-          <div className="MoonPhase col-4 text-center">
-            <h4 id="moon">Moon Phase:</h4>
+      </section>
+      <section className="col">
+        <ul>
+          <li>Sunrise:<span id="value"> {weatherData.sunrise}</span></li>
+          <li>Sunset:<span id="value"> {weatherData.sunset}</span></li>
+          <li>Wind:<span id="value"> {weatherData.wind} mph</span></li>
+        </ul>
+      </section>
+      </section>
+      <section className="Moon row justify-content-center">
+          <h4 id="moon">Moon Phase:</h4>
+        <header className="MoonPhase col-3">
           <WeatherIcon weatherCode={weatherData.moonPhase} weatherID={weatherData.moonPhase}/>
-          <span id="phase">{moonPhases[moon]}</span>
-          </div>
-        </div>
-        <input type="submit" value="Close" className="btn btn-warning w-50" onClick={handleClose}/>
-      </div>
-    </div>
-    </BouncyDiv>
+        </header>
+        <span className="text-center" id="phase">{moonPhases[moon]}</span>
+      <input type="submit" value="Close" className="btn btn-warning w-50" onClick={handleClose}/>
+      </section>
+    </article>
     </>
   )
 }

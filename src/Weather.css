@@ -1,5 +1,4 @@
 .Weather {
-  font-family: arial, sans-serif;
   border: 1px solid #dadde1;
   border-radius: 5px;
   color: rgb(135, 135, 135);
@@ -11,4 +10,8 @@
   display: block;
   margin: 0 auto;
   padding-top: 1em;
+}
+
+.Weather img {
+  max-width: 250px;
 }

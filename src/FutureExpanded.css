@@ -9,17 +9,18 @@
   box-shadow: 0px 5px 5px -5px #6E6E6E;
 }
 .FutureExpanded h4 {
+  margin-bottom: 0;
   text-align: center;
   color: rgb(63, 63, 63);
 }
 .FutureExpanded #description {
-  font-size: 18px;
-  margin-bottom: 1em;
+  margin-bottom: .5rem;
+  font-size: 1.25em;
   text-transform: capitalize;
 }
 
 .FutureExpanded #detials {
-  font-size: 12px;
+  font-size: 1em;
   display: flex;
   flex-direction: column;
 }
@@ -31,6 +32,7 @@
 .FutureExpanded ul {
   list-style: none;
   color: rgb(63, 63, 63);
+  margin-bottom: 0;
 }
 .FutureExpanded .MoonPhase {
   display: flex;
@@ -42,18 +44,19 @@
   text-transform: capitalize;
   font-weight: 200;
   color: rgb(63, 63, 63);
-  font-size: 18px;
+  font-size: 1.25em;
 }
 
 .FutureExpanded #phase {
   color: navy;
   text-transform: capitalize;
-  font-size: 14px;
+  font-size: .85em;
   margin-bottom: 1em;
 }
 
 .FutureExpanded .btn {
   box-shadow: 0px 2px 9px -5px #6E6E6E;
+  max-width: 8rem;
 }
 
 .FutureExpanded .btn:hover {

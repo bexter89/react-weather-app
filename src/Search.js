@@ -151,7 +151,7 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
   }
 
   return (
-    <div className="Search">
+    <section className="Search">
       <form onSubmit={handleSubmit}>
         <div className="row align-items-center">
           <div className="col-9">
@@ -194,6 +194,6 @@ export default function Search({ updateWeather, setFutureData, setShowWeather })
       :
       null
       }
-    </div>
+    </section>
   );
 }

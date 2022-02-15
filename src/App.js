@@ -3,9 +3,9 @@ import Weather from './Weather'
 export default function App() {
 
   return (
-    <div className="App">
+    <main className="App">
       <div className="container">
-        <img src="../public/assets/weather.svg" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
+
         <Weather />
         <footer>
           This project was coded by Rebekah Cruz and is {' '}
@@ -16,6 +16,6 @@ export default function App() {
           </a>
         </footer>
       </div>
-    </div>
+    </main>
   );
 }

@@ -27,13 +27,13 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
 
   if (todaysWeather) {
   return (
-    <div className="TodaysWeather">
+    <section className="TodaysWeather">
       <h1>{todaysWeather.name}</h1>
       <ul>
         <li id="day">Last updated: {todaysWeather.day}, {todaysWeather.time}</li>
         <li id="desc">{todaysWeather.desc}</li>
       </ul>
-      <div className="row mt-3 align-items-start">
+      <section className="row mt-3 align-items-start">
         <div className="col-6">
           <div className="clearfix">
           <WeatherIcon
@@ -43,11 +43,11 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
           />
             <div className="float-left">
               <span className="temperature">{temp}</span>
-              <span className="unit"><a href="/" onClick={handleFClick}>°F</a> | <a href="/" onClick={handleCClick}>C°</a></span>
+              <span className="unit"><a href="/" onClick={handleFClick}>°F</a> | <a href="/" onClick={handleCClick}>°C</a></span>
             </div>
           </div>
         </div>
-        <div className="col-6 ">
+        <section className="col-6 ">
           <ul>
             {todaysWeather.rain ?
              <li>Rain: {convertMMtoIn(todaysWeather.rain[`1h`])} inches in the last hour </li> : null}
@@ -56,11 +56,15 @@ export default function TodaysWeather ({todaysWeather, setUnits}) {
             <li>Humidity: {todaysWeather.humidity}%</li>
             <li>Wind: {todaysWeather.wind} m/hr</li>
           </ul>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
   )
   } else {
-   return 'loading weather...'
+   return (
+    <section className="spinner-border text-info" role="status">
+      <span className="visually-hidden">loading weather...</span>
+    </section>
+   )
   }
 }

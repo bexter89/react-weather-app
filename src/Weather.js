@@ -3,6 +3,7 @@ import './Weather.css'
 import Search from './Search'
 import TodaysWeather from './TodaysWeather'
 import FutureWeather from './FutureWeather'
+import umbrellaImage from './assets/umbrella.svg'
 
 export default function Weather () {
   const [weatherData, setWeatherData] = useState(null);
@@ -19,7 +20,11 @@ export default function Weather () {
   }
 
   return (
-    <div className="Weather">
+    <section className="Weather">
+      <header className="mb-4 text-center">
+        <h1>Weather App</h1>
+        <img src={umbrellaImage} className="img-fluid" alt="clipart of a male figure using an umbrella standing next to a graphic of a weather alert"/>
+      </header>
     <Search updateWeather={updateWeather} setFutureData={setFutureData} setShowWeather={setIsValid} />
     {isValid ?
       <>
@@ -29,6 +34,6 @@ export default function Weather () {
     :
       <span id="helper">Weather data for your city will appear here</span>
     }
-    </div>
+    </section>
   )
 }

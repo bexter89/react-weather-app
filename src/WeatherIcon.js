@@ -121,7 +121,7 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain }){
   }
 
   return (<img
-    className="WeatherIcon"
+    className="WeatherIcon img-fluid"
     src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[weatherCode]}.svg`}
     alt={`an animation of ${weatherTypes[key]}`}
     />)

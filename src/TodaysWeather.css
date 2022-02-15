@@ -1,10 +1,10 @@
 
 .TodaysWeather h1 {
-  font-size: 24px;
+  font-size: 2em;
   color: black;
   font-weight: 100;
-  line-height: 29px;
-  margin-top: 20px;
+  line-height: 1;
+  margin-top: 1rem;
 }
 
 .TodaysWeather ul {
@@ -12,7 +12,7 @@
   padding: 0;
 }
 .TodaysWeather li {
-  font-size: 16px;
+  font-size: 1.125em;
   font-weight: 100;
   line-height: 19px;
   list-style: none;

@@ -1,7 +1,17 @@
 
-body {
+html, body {
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:center;
   height: 100vh;
+}
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
 }
 
 .App {
@@ -10,6 +20,10 @@ body {
 }
 
 .App footer {
-  font-size: 11px;
+  font-size:.75em;
   margin: 10px 0;
+}
+
+.App img {
+  max-width: 600px;
 }

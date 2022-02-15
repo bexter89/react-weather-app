@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import FutureDay from './FutureDay';
-import FutureExpanded from './FutureExpanded'
+import ExpandedContainer from './ExpandedContainer'
 import './FutureWeather.css'
+import weatherImage from './assets/weather.svg'
 
 export default function FutureWeather ({ futureWeather, units }) {
   const [showDetailView, setShowDetailView] = useState(false);
@@ -13,11 +14,14 @@ export default function FutureWeather ({ futureWeather, units }) {
   }
 
   return (
-    <div className="FutureWeather">
-      <div className="row text-center">
+    <section className="FutureWeather">
+      <header className="row text-center">
         <h2>Five-Day Future Forecast</h2>
+      </header>
+      <div className="ImageContainer row justify-content-center">
+        <img src={weatherImage} className="img-fluid mt-2" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
       </div>
-      <div className="row align-items-center justify-content-center">
+      <div className="FiveDay row align-items-center justify-content-center">
         {futureWeather ?
           futureWeather.map((day, index )=> {
           return (
@@ -36,14 +40,14 @@ export default function FutureWeather ({ futureWeather, units }) {
         }
       </div>
       { showDetailView ?
-      <div className="row">
-        <FutureExpanded weatherData={futureDayDetails} units={units} showDetail={setShowDetailView}/>
+      <div className="Expanded row">
+        <ExpandedContainer weatherData={futureDayDetails} units={units} showDetail={setShowDetailView}/>
       </div>
       :
       <div className="Helper row align-items-center justify-content-center">
        (click on any day to show an expanded weather view)
       </div>
       }
-    </div>
+    </section>
   )
 }
