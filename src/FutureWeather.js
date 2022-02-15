@@ -7,22 +7,32 @@ import Fade from './StyledElements/Fade'
 
 export default function FutureWeather ({ futureWeather, units }) {
   const [futureDayDetails, setFutureDayDetails] = useState({});
+  const [isFirstRender, setIsFirstRender] = useState(true)
   const [showExpandedView, setShowExpandedView] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [showDiv, setShowDiv] = useState(true);
 
-  function handleClick(index) {
-    setShowExpandedView(true);
-    setFutureDayDetails(futureWeather[index]);
-    setIsMounted(!isMounted);
-    if (!showDiv) setShowDiv(true);
-  }
-
-  function hanldeShowDiv() {
-    if (!isMounted){
+  //on animation end
+  function handleShowDiv() {
+    if (isFirstRender) {
+      setShowDiv(true)
+    } else {
       setShowDiv(false)
     }
   }
+
+  //on day click
+  function handleClick(index) {
+    setShowExpandedView(true);
+    setFutureDayDetails(futureWeather[index]);
+    if (isFirstRender) {
+      setShowDiv(true)
+      setIsFirstRender(false)
+    } else {
+      setShowDiv(false)
+    }
+  }
+
 
   return (
     <section className="FutureWeather">
@@ -34,7 +44,7 @@ export default function FutureWeather ({ futureWeather, units }) {
         <Fade
           out={showExpandedView}
           className="text-center"
-          onAnimationEnd={hanldeShowDiv}
+          onAnimationEnd={handleShowDiv}
         >
           <img src={weatherImage} className="img-fluid mt-2" alt="clipart of a female figure standing next to a modal of a five day forecast"/>
         </Fade>
@@ -63,7 +73,8 @@ export default function FutureWeather ({ futureWeather, units }) {
           weatherData={futureDayDetails}
           units={units}
           setShowExpandedView={setShowExpandedView}
-          showDiv={setShowDiv}
+          setIsFirstRender={setIsFirstRender}
+          isFirstRender={isFirstRender}
           setShowDiv={setShowDiv}
           setIsMounted={setIsMounted}
         />

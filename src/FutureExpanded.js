@@ -2,7 +2,7 @@ import React from 'react';
 import './FutureExpanded.css'
 import WeatherIcon from './WeatherIcon'
 
-export default function FutureExpanded({ weatherData, units, setShowExpandedView, showDiv, setShowDiv, setIsMounted }) {
+export default function FutureExpanded({ weatherData, units, setShowExpandedView, setIsFirstRender, isFirstRender,  setShowDiv, setIsMounted }) {
   console.log('weather data: ', weatherData)
   const fahMinTemp = weatherData.tempMin;
   const fahMaxTemp = weatherData.tempMax;
@@ -18,6 +18,7 @@ export default function FutureExpanded({ weatherData, units, setShowExpandedView
   function handleClose(e) {
     e.preventDefault()
     setShowExpandedView(false)
+    setIsFirstRender(true)
     setShowDiv(true)
     setIsMounted(true)
   }
