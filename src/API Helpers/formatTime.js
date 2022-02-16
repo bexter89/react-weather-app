@@ -14,14 +14,16 @@ function formatDayOfWeek(timestamp) {
 }
 
 function updateSunTimes(unixTimestamp, timeZone) {
-
+  //get locoal time offset
+  let localTZoffset = new Date(unixTimestamp * 1000).getTimezoneOffset() / 60;
   let sunTimeStamp = new Date(unixTimestamp * 1000)
+  //get inputCity time offset
   let offsetHours = (timeZone / 3600)
   let hour = sunTimeStamp.getHours();
   let minutes = "0" + sunTimeStamp.getMinutes();
   let timeOfDay;
 
-  hour = (hour + offsetHours + 6)
+  hour = (hour + offsetHours + localTZoffset)
 
   // configure AM/PM
   if (hour >= 12) {
