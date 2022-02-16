@@ -1,140 +1,34 @@
-import React from 'react';
-
+import {formatDayOfWeek, updateDateTime, updateSunTimes} from './formatTime'
 let tz;
-
-function updateDate(timeZoneOffset, weatherCode, timeStamp ) {
-  console.log('timeZoneOffset: ', timeZoneOffset)
-  let currentDate = new Date()
-  let inputCityTS = new Date(timeStamp * 1000)
-  let months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-
-  let monthNum = currentDate.getMonth()
-  let monthName = months[monthNum]
-  let date = currentDate.getDate();
-  let day = days[currentDate.getDay()];
-  let hour = currentDate.getHours();
-
-  //if before 10am, add leading 0
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  // add leading 0 if minutes are below 10
-  let min = currentDate.getMinutes();
-  if (min < 10) {
-    min = `0${min}`;
-  }
-  // configure AM/PM
-  let time = `${hour}:${min}`;
-  if (hour >= 12) {
-    time = time + 'PM'
-  } else {
-    time = time + 'AM'
-  }
-
-  let inputCityTimeZoneOffsetHours = (timeZoneOffset / 3600);
-  let utcTime = inputCityTS.getUTCHours();
-  console.log('!!! UTC time: ', utcTime)
-  console.log('!!! tz offset: ',inputCityTimeZoneOffsetHours)
-  let inputCityHour = (utcTime + inputCityTimeZoneOffsetHours)
-
-  if (inputCityHour < 1) {
-    inputCityHour = 12;
-  }
-  if (inputCityHour >= 24) {
-    inputCityHour = inputCityHour - 24
-    day = days[currentDate.getDay() + 1];
-    date = currentDate.getDate() + 1;
-  }
-
-  let timeOfDay = inputCityHour >= 12 ? ` PM` : ` AM`;
-  if (inputCityHour >= 13) {
-    inputCityHour = (inputCityHour - 12);
-  }
-  let formattedDate = `${day}, ${monthName} ${date}`
-  let inputCityTime = `${inputCityHour}:${min}${timeOfDay}`;
-
-  return [formattedDate, inputCityTime, time]
-}
-
-function formatTime(timestamp, sunTimes) {
-  let date = new Date(timestamp * 1000);
-  console.log('date: ', date)
-  let hours = date.getHours();
-  let minutes = "0" + date.getMinutes();
-  let timeOfDay = hours >= 12 ? ` PM` : ` AM`;
-  if (hours >= 13) {
-    hours = (hours - 12);
-  }
-  let formattedTime = hours + ":" + minutes.substr(-2) + timeOfDay;
-  console.log('formatted: ', formattedTime)
-  return formattedTime;
-}
-
-function formatDayOfWeek(timestamp) {
-  let week = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  return week[day];
-}
 
 function parseTodaysWeatherData(cityName, data) {
   console.log('todays weather: ', data)
-  //updateDate(timeZoneOffset, weatherCode, timeStamp )
+  //updateDateTime(UNIXtimeStamp, timeZoneOffset, weatherCode)
   let timeZoneOff = data.timezone;
   tz = timeZoneOff;
   let weatherCode = data.weather[0].icon;
-  let formattedTimeData =  updateDate(timeZoneOff, weatherCode, data.dt)
-  let sunriseTime = updateDate(timeZoneOff, weatherCode, data.sys.sunrise);
-  let sunsetTime = updateDate(timeZoneOff, weatherCode, data.sys.sunset);
+  let formattedTimeData =  updateDateTime(data.dt, timeZoneOff)
+  let sunriseTime = updateSunTimes(data.sys.sunrise, timeZoneOff);
+  let sunsetTime = updateSunTimes(data.sys.sunset, timeZoneOff);
 
   let cityData = {
     name: cityName,
-    day: formatDayOfWeek(data.dt),
+    day: formattedTimeData[2],
     desc: data.weather[0].description,
     weatherCode: weatherCode,
     weatherID: data.weather[0].id,
     weatherMain: data.weather[0].main,
     date: formattedTimeData[0],
     inputTime: formattedTimeData[1],
-    time: formatTime(data.dt),
+    time: formattedTimeData[5],
     humidity : Math.round(data.main.humidity),
     temp : Math.round(data.main.temp),
     tempFeels : Math.round(data.main.feels_like),
     tempMin : Math.round(data.main.temp_min),
     tempMax : Math.round(data.main.temp_max),
     wind : data.wind.speed,
-    sunrise : sunriseTime[1],
-    sunset : sunsetTime[1],
+    sunrise : sunriseTime,
+    sunset : sunsetTime,
   }
 
   if (data.rain) {
@@ -148,9 +42,9 @@ function parseTodaysWeatherData(cityName, data) {
 
 function parseFutureData(cityName, data) {
   let weatherCode = data.weather[0].icon;
-  let formattedTimeData =  updateDate(tz, weatherCode, data.dt)
-  let sunriseTime = updateDate(tz, weatherCode, data.sunrise);
-  let sunsetTime = updateDate(tz, weatherCode, data.sunset);
+  let formattedTimeData =  updateDateTime(data.dt, tz)
+  let sunriseTime = updateSunTimes(data.sunrise, tz);
+  let sunsetTime = updateSunTimes(data.sunset, tz);
 
   let futureDayData = {
     name: cityName,
@@ -161,7 +55,7 @@ function parseFutureData(cityName, data) {
     weatherMain: data.weather[0].main,
     date: formattedTimeData[0],
     inputTime: formattedTimeData[1],
-    time : formatTime(data.dt),
+    time : formattedTimeData[5],
     timezone : tz,
     humidity : Math.round(data.humidity),
     temp : Math.round(data.temp.day),
@@ -169,8 +63,8 @@ function parseFutureData(cityName, data) {
     tempMin : Math.round(data.temp.min),
     tempMax : Math.round(data.temp.max),
     wind : data.wind_speed,
-    sunrise : sunriseTime[1],
-    sunset : sunsetTime[1],
+    sunrise : sunriseTime,
+    sunset : sunsetTime,
     moonPhase : data.moon_phase
   }
 
