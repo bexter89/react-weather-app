@@ -3,6 +3,7 @@ import React from 'react';
 let tz;
 
 function updateDate(timeZoneOffset, weatherCode, timeStamp ) {
+  console.log('timeZoneOffset: ', timeZoneOffset)
   let currentDate = new Date()
   let inputCityTS = new Date(timeStamp * 1000)
   let months = [
@@ -54,6 +55,8 @@ function updateDate(timeZoneOffset, weatherCode, timeStamp ) {
 
   let inputCityTimeZoneOffsetHours = (timeZoneOffset / 3600);
   let utcTime = inputCityTS.getUTCHours();
+  console.log('!!! UTC time: ', utcTime)
+  console.log('!!! tz offset: ',inputCityTimeZoneOffsetHours)
   let inputCityHour = (utcTime + inputCityTimeZoneOffsetHours)
 
   if (inputCityHour < 1) {
@@ -77,6 +80,7 @@ function updateDate(timeZoneOffset, weatherCode, timeStamp ) {
 
 function formatTime(timestamp, sunTimes) {
   let date = new Date(timestamp * 1000);
+  console.log('date: ', date)
   let hours = date.getHours();
   let minutes = "0" + date.getMinutes();
   let timeOfDay = hours >= 12 ? ` PM` : ` AM`;
@@ -84,6 +88,7 @@ function formatTime(timestamp, sunTimes) {
     hours = (hours - 12);
   }
   let formattedTime = hours + ":" + minutes.substr(-2) + timeOfDay;
+  console.log('formatted: ', formattedTime)
   return formattedTime;
 }
 
@@ -103,7 +108,7 @@ function formatDayOfWeek(timestamp) {
 }
 
 function parseTodaysWeatherData(cityName, data) {
-
+  console.log('todays weather: ', data)
   //updateDate(timeZoneOffset, weatherCode, timeStamp )
   let timeZoneOff = data.timezone;
   tz = timeZoneOff;
@@ -127,7 +132,7 @@ function parseTodaysWeatherData(cityName, data) {
     tempFeels : Math.round(data.main.feels_like),
     tempMin : Math.round(data.main.temp_min),
     tempMax : Math.round(data.main.temp_max),
-    wind : Math.round(data.wind.speed),
+    wind : data.wind.speed,
     sunrise : sunriseTime[1],
     sunset : sunsetTime[1],
   }
@@ -163,7 +168,7 @@ function parseFutureData(cityName, data) {
     tempFeels : Math.round(data.feels_like.day),
     tempMin : Math.round(data.temp.min),
     tempMax : Math.round(data.temp.max),
-    wind : Math.round(data.wind_speed),
+    wind : data.wind_speed,
     sunrise : sunriseTime[1],
     sunset : sunsetTime[1],
     moonPhase : data.moon_phase

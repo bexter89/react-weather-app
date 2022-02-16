@@ -41,7 +41,7 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
   if (todaysWeather) {
   return (
     <article className="TodaysWeather">
-      <h1>In <span id="cityName">{todaysWeather.name}</span>, its... </h1>
+      <h1>In <span id="cityName">{todaysWeather.name.toLowerCase()}</span>, its... </h1>
       <ul>
         <li id="inputCityDateTime">{todaysWeather.inputTime} on {todaysWeather.date}</li>
         <li id="updatedOn">Last updated: {todaysWeather.day} at {todaysWeather.time} local time</li>

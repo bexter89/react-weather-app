@@ -22,7 +22,7 @@ export default function FutureDay({ weather, units }) {
   return (
     <>
     <div className="row">
-      <h3><u>{weather.day}</u></h3>
+      <h3>{weather.day}</h3>
       <RollDiv>
       <WeatherIcon
         weatherCode={weather.weatherCode} weatherID={weather.weatherID}
