@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import  { parseTodaysWeatherData, parseFutureData } from './API Helpers/dataHandlers'
+import  { parseTodaysWeatherData, parseFutureData } from './apiHelpers/dataHandlers'
 
 export default function Search({ updateWeather, setFutureData, setShowWeather, setShowExpanded, setCloseExpandedView }) {
   const [city, setCity] = useState("Austin");
