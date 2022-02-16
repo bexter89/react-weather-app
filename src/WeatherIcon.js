@@ -14,7 +14,6 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconNa
   if (weatherMain) {
     // direct category to weather object
     category = weatherMain.toLowerCase();
-    console.log('category: ', category)
   }
   if (weatherID) {
     key = weatherID;
