@@ -17,10 +17,7 @@ function updateSunTimes(unixTimestamp, timeZone) {
 
   let sunTimeStamp = new Date(unixTimestamp * 1000)
   let offsetHours = (timeZone / 3600)
-  console.log(offsetHours)
-  console.log(sunTimeStamp, 'sunTimeStamp conversion')
   let hour = sunTimeStamp.getHours();
-  console.log('* initail Hour: ', hour)
   let minutes = "0" + sunTimeStamp.getMinutes();
   let timeOfDay;
 
@@ -33,7 +30,6 @@ function updateSunTimes(unixTimestamp, timeZone) {
     timeOfDay = ' AM'
   }
 
-
   if (hour >= 12) {
     hour = (hour - 12)
     if (hour >= 12) {
@@ -44,10 +40,7 @@ function updateSunTimes(unixTimestamp, timeZone) {
     hour = 12;
   }
 
-  console.log('*** final hour: ', hour)
-
   let time = hour + ':' + minutes.substr(-2) + timeOfDay;
-  console.log('** resulting time: ', time)
   return time;
 }
 

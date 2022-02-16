@@ -2,8 +2,7 @@ import {formatDayOfWeek, updateDateTime, updateSunTimes} from './formatTime'
 let tz;
 
 function parseTodaysWeatherData(cityName, data) {
-  console.log('todays weather: ', data)
-  //updateDateTime(UNIXtimeStamp, timeZoneOffset, weatherCode)
+  //updateDateTime(UNIXtimeStamp, timeZoneOffset)
   let timeZoneOff = data.timezone;
   tz = timeZoneOff;
   let weatherCode = data.weather[0].icon;
