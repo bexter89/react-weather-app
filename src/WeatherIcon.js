@@ -2,29 +2,27 @@ import React from 'react';
 import './WeatherIcon.css'
 
 export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconName, size }){
-  let key;
 
-  if (weatherCode && weatherID) {
-    key = weatherID.toString();
-    if (weatherCode > 0 && weatherCode < 0.25) {
-      weatherCode = 0.125
-      key = weatherCode.toString();
-    }
-    if (weatherCode > 0.25 && weatherCode < 0.5) {
-      weatherCode = 0.375
-      key = weatherCode.toString();
-    }
-    if (weatherCode > 0.5 && weatherCode < 0.75) {
-      weatherCode = 0.625
-      key = weatherCode.toString();
-    }
-    if (weatherCode > 0.75 && weatherCode < 1) {
-      weatherCode = 0.875;
-      key = weatherCode.toString();
-    }
+  let key;
+  let category = 'moon';
+  let keyCode;
+
+  // keycode = weathercode: 10d
+  // key = weatherID: 500
+  // category = weatherMain: Rain
+
+  if (weatherMain) {
+    // direct category to weather object
+    category = weatherMain.toLowerCase();
+    console.log('category: ', category)
+  }
+  if (weatherID) {
+    key = weatherID;
   }
 
-
+  if(weatherCode) {
+    keyCode = weatherCode;
+  }
 
   const codeMapping= {
     '01d' : 'clear-day',
@@ -43,6 +41,8 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconNa
     '11n' : 'thunderstorms-night',
     '13d' : 'partly-cloudy-day-snow',
     '13n' : 'partly-cloudy-night-snow',
+    '14d' : 'partly-cloudy-day-sleet',
+    '14n' : 'partly-cloudy-night-sleet',
     '50d' : 'mist',
     '50n' : 'mist',
     '0' : 'moon-new',
@@ -56,56 +56,54 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconNa
     '1' : 'moon-new',
   }
 
-  const weatherTypes = {
-    '0' : 'new moon',
-    '0.125' : 'waxing-crescent moon',
-    '0.25' : 'first-quarter moon',
-    '0.375': 'waxing-gibbous moon',
-    '0.5' : 'full moon',
-    '0.625' : 'waning-gibbous moon',
-    '0.75' : 'last-quarter moon',
-    '0.875' : 'waning-crescent moon',
-    '1' : 'new moon',
-    '200' : 'thunderstorm with light rain',
-    '201' : 'thunderstorm with rain',
-    '202' : 'thunderstorm with heavy rain',
-    '210' : 'light thunderstorm',
-    '211' : 'thunderstorm',
-    '212' : 'heavy thunderstorm',
-    '221' : 'ragged thunderstorm',
-    '230' : 'thunderstorm with light drizzle',
-    '231' : 'thunderstorm with drizzle',
-    '232' : 'thunderstorm with heavy drizzle',
-    '300'	: 'light intensity drizzle',
-    '301'	: 'drizzle',
-    '302'	: 'heavy intensity drizzle',
-    '310'	: 'light intensity drizzle rain',
-    '311'	: 'drizzle rain',
-    '312'	: 'heavy intensity drizzle rain',
-    '313'	: 'shower rain and drizzle',
-    '314'	: 'heavy shower rain and drizzle',
-    '321'	: 'shower drizzle',
-    '500' : 'light rain',
-    '501' : 'moderate rain',
-    '502' : 'heavy intensity rain',
-    '503' : 'very heavy rain',
-    '504' : 'extreme rain',
-    '511' : 'freezing rain',
-    '520' : 'light intensity shower rain',
-    '521' : 'shower rain',
-    '522' : 'heavy intensity shower rain',
-    '531' : 'ragged shower rain',
+  if (weatherCode && weatherID) {
+    if (weatherCode > 0 && weatherCode < 0.25) {
+      category = 'moon';
+      weatherCode = 0.125
+      keyCode = weatherCode.toString();
+    }
+    if (weatherCode > 0.25 && weatherCode < 0.5) {
+      category = 'moon';
+      weatherCode = 0.375
+      keyCode = weatherCode.toString();
+    }
+    if (weatherCode > 0.5 && weatherCode < 0.75) {
+      category = 'moon';
+      weatherCode = 0.625
+      keyCode = weatherCode.toString();
+    }
+    if (weatherCode > 0.75 && weatherCode < 1) {
+      category = 'moon';
+      weatherCode = 0.875;
+      keyCode = weatherCode.toString();
+    }
+  }
+
+  if (category === 'snow') {
+    if (weatherID >= 611 && weatherID <= 616){
+      if (weatherCode[weatherCode.length] === 'd') {
+        keyCode = '14d'
+      } else {
+        keyCode ='14n'
+      }
+    }
+  }
+
+  let snow = {
     '600' : 'light snow',
     '601' : 'Snow',
     '602' : 'Heavy snow',
     '611' : 'Sleet',
-    '612' : 'Light shower sleet',
-    '613' : 'Shower sleet',
+    '612' : 'Light shower and sleet',
+    '613' : 'Shower and sleet',
     '615' : 'Light rain and snow',
     '616' : 'Rain and snow',
-    '620' : 'Light shower snow',
-    '621' : 'Shower snow',
-    '622' :' Heavy shower snow',
+    '620' : 'Light showers and snow',
+    '621' : 'Showers snow',
+    '622' :' Heavy showers and snow',
+  }
+
+  let atmosphere = {
     '701': 'mist',
     '711': 'Smoke',
     '721': 'Haze',
@@ -116,12 +114,69 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconNa
     '762': 'volcanic ash',
     '771': 'squalls',
     '781': 'tornado',
-    '800': 'clear',
+  }
+  let clear = {
+    '800': 'clear skies',
+  }
+
+  let clouds = {
     '801': `few clouds: 11-25%`,
     '802': `scattered clouds: 25-50%`,
     '803': `broken clouds: 51-84%`,
     '804': `overcast clouds: 85-100%`,
   }
+
+  let rain = {
+    '500' : 'light rain',
+    '501' : 'moderate rain',
+    '502' : 'heavy rain',
+    '503' : 'very heavy rain',
+    '504' : 'extreme rain',
+    '511' : 'freezing rain',
+    '520' : 'light shower rain',
+    '521' : 'shower rain',
+    '522' : 'heavy shower rain',
+    '531' : 'ragged shower rain',
+  }
+
+  let drizzle = {
+    '300'	: 'light drizzle',
+    '301'	: 'drizzle',
+    '302'	: 'heavy drizzle',
+    '310'	: 'light drizzle and rain',
+    '311'	: 'drizzle and rain',
+    '312'	: 'heavy drizzle and rain',
+    '313'	: 'shower rain and drizzle',
+    '314'	: 'heavy showers, rain and drizzle',
+    '321'	: 'shower drizzle',
+  }
+
+  let thunderstorm = {
+    '200' : 'thunderstorm with light rain',
+    '201' : 'thunderstorm with rain',
+    '202' : 'thunderstorm with heavy rain',
+    '210' : 'light thunderstorm',
+    '211' : 'thunderstorm',
+    '212' : 'heavy thunderstorm',
+    '221' : 'ragged thunderstorm',
+    '230' : 'thunderstorm with light drizzle',
+    '231' : 'thunderstorm with drizzle',
+    '232' : 'thunderstorm with heavy drizzle',
+  }
+
+
+  const moon = {
+    '0' : 'new moon',
+    '0.125' : 'waxing-crescent moon',
+    '0.25' : 'first-quarter moon',
+    '0.375': 'waxing-gibbous moon',
+    '0.5' : 'full moon',
+    '0.625' : 'waning-gibbous moon',
+    '0.75' : 'last-quarter moon',
+    '0.875' : 'waning-crescent moon',
+    '1' : 'new moon',
+  }
+
   if(iconName) {
     return (
       <img
@@ -135,8 +190,8 @@ export default function WeatherIcon({weatherCode, weatherID, weatherMain, iconNa
     return (
       <img
         id="WeatherIcon"
-        src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[weatherCode]}.svg`}
-        alt={`an animation of ${weatherTypes[key]}`}
+        src={`https://basmilius.github.io/weather-icons/production/fill/all/${codeMapping[keyCode]}.svg`}
+        alt={`an animation of ${codeMapping[keyCode]}`}
       />
     )
   }
