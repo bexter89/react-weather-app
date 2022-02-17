@@ -14,11 +14,12 @@ function formatDayOfWeek(timestamp) {
   return week[day];
 }
 
-function updateSunTimes(unixTimestamp, offsetHours) {
-  //get locoal time offset
+function updateSunTimes(unixTimestamp) {
+  console.log('sun timestamp: ', unixTimestamp)
   let sunTimeStamp = new Date(unixTimestamp * 1000)
-  //get inputCity time offset
+  console.log(sunTimeStamp)
   let hour = sunTimeStamp.getHours();
+  console.log(hour, 'hour')
   let minutes = "0" + sunTimeStamp.getMinutes();
   let timeOfDay;
 
@@ -38,15 +39,13 @@ function updateSunTimes(unixTimestamp, offsetHours) {
   if (hour < 1) {
     hour = 12;
   }
-
   let time = hour + ':' + minutes.substr(-2) + timeOfDay;
   return time;
 }
 
- function updateDateTime(utcHoursShift) {
-  console.log(utcHoursShift, ' offset Hrs')
-  let currentDate = new Date();
 
+ function updateDateTime(utcHoursShift) {
+  let currentDate = new Date();
   let months = [
     'January',
     'February',
@@ -61,7 +60,6 @@ function updateSunTimes(unixTimestamp, offsetHours) {
     'November',
     'December'
   ];
-
   let days = [
     "Sunday",
     "Monday",
@@ -72,6 +70,7 @@ function updateSunTimes(unixTimestamp, offsetHours) {
     "Saturday"
   ];
 
+  // **** Local Time Configuration ****
   let monthNum = currentDate.getMonth()
   let monthName = months[monthNum]
   let date = currentDate.getDate();
@@ -95,13 +94,11 @@ function updateSunTimes(unixTimestamp, offsetHours) {
   let localTime = `${hour}:${min} ${localTimeofDay}`
   let formattedDayMoDate = `${day}, ${monthName} ${date},`
 
-//////////////////////////
+  // **** Input City Time Configuration ****
   let inputCityDate = date;
   let inputCityDay = day;
   let utcTime = (currentDate.getTimezoneOffset())/60;
-  console.log('utct time: ', utcTime)
   let inputCityHour = utcTime + currentDate.getHours() + utcHoursShift;
-  console.log('first ', inputCityHour)
   let inputCityTimeofDay = ' AM';
 
   if (inputCityHour >= 24) {
@@ -119,11 +116,8 @@ function updateSunTimes(unixTimestamp, offsetHours) {
     inputCityHour -= 12;
   }
 
-
   let inputCityTime = `${inputCityHour}:${min} ${inputCityTimeofDay}`;
-
   let localFormattedFullDate =`${formattedDayMoDate} ${inputCityTime}`
-
   let inputCityFormattedFullDate = `${inputCityDay}, ${monthName} ${inputCityDate}`
 
   let formattedDateTime = [
@@ -133,7 +127,7 @@ function updateSunTimes(unixTimestamp, offsetHours) {
     [monthName],
     [date, inputCityDate],
   ]
-  console.log(formattedDateTime, 'all data')
+
   return formattedDateTime;
 }
 

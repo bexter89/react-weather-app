@@ -1,12 +1,12 @@
 import {formatDayOfWeek, updateDateTime, updateSunTimes} from './formatTime'
-let tz;
+let tzHourShift;
 
 function parseTodaysWeatherData(cityName, data) {
 
   //Timezone from  API - Shift in seconds from UTC
   //convert to Hours
   let utcHoursShift = (data.timezone/3600);
-  tz = utcHoursShift;
+  tzHourShift = utcHoursShift;
   let weatherCode = data.weather[0].icon;
   //Time of data calculation, unix, UTC
   let formattedTimeData =  updateDateTime( utcHoursShift)
@@ -46,9 +46,9 @@ function parseTodaysWeatherData(cityName, data) {
 
 function parseFutureData(cityName, data) {
   let weatherCode = data.weather[0].icon;
-  let formattedTimeData =  updateDateTime(tz)
-  let sunriseTime = updateSunTimes(data.sunrise, tz);
-  let sunsetTime = updateSunTimes(data.sunset, tz);
+  let formattedTimeData =  updateDateTime(tzHourShift)
+  let sunriseTime = updateSunTimes(data.sunrise);
+  let sunsetTime = updateSunTimes(data.sunset);
 
   let futureDayData = {
     name: cityName,
@@ -60,7 +60,7 @@ function parseFutureData(cityName, data) {
     date: formattedTimeData[0][0],
     inputTime: formattedTimeData[1][1],
     time : formattedTimeData[1][0],
-    timezone : tz,
+    timezone : tzHourShift,
     humidity : Math.round(data.humidity),
     temp : Math.round(data.temp.day),
     tempFeels : Math.round(data.feels_like.day),
