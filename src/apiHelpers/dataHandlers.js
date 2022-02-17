@@ -47,8 +47,8 @@ function parseTodaysWeatherData(cityName, data) {
 function parseFutureData(cityName, data) {
   let weatherCode = data.weather[0].icon;
   let formattedTimeData =  updateDateTime(tzHourShift)
-  let sunriseTime = updateSunTimes(data.sunrise);
-  let sunsetTime = updateSunTimes(data.sunset);
+  let sunriseTime = updateSunTimes(data.sunrise, tzHourShift);
+  let sunsetTime = updateSunTimes(data.sunset, tzHourShift);
 
   let futureDayData = {
     name: cityName,

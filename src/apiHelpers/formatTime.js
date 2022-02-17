@@ -14,42 +14,30 @@ function formatDayOfWeek(timestamp) {
   return week[day];
 }
 
-function updateSunTimes(unixTimestamp) {
-  console.log('sun timestamp: ', unixTimestamp)
+function updateSunTimes(unixTimestamp, tzHourShift) {
   let sunTimeStamp = new Date(unixTimestamp * 1000)
-  console.log(sunTimeStamp)
   let utcTime = (sunTimeStamp.getTimezoneOffset())/60;
-  console.log('utcTime: ', utcTime)
-  let hour = sunTimeStamp.getHours();
-  console.log(hour, 'hour')
-
-  let adjustedHour;
-  if (utcTime > 0) {
-    adjustedHour = hour + utcTime;
-  } else {
-    adjustedHour = hour - utcTime;
-  }
-
-  console.log(adjustedHour, 'adj hour *****')
+  let hour = utcTime + sunTimeStamp.getHours() + tzHourShift;
   let minutes = "0" + sunTimeStamp.getMinutes();
-  let timeOfDay;
+  let timeOfDay = ' AM';
 
   // configure AM/PM
-  if (hour >= 12) {
-    timeOfDay = ' PM'
-  } else {
-    timeOfDay = ' AM'
-  }
-
-  if (hour >= 12) {
-    hour = (hour - 12)
+  if (hour >= 24) {
+    hour -= 24
     if (hour >= 12) {
       timeOfDay = ' PM'
     }
   }
+
   if (hour < 1) {
-    hour = 12;
+    hour = `0${hour}`;
   }
+
+  if (hour >= 13) {
+    timeOfDay = ' PM'
+    hour -= 12;
+  }
+
   let time = hour + ':' + minutes.substr(-2) + timeOfDay;
   return time;
 }
@@ -113,7 +101,6 @@ function updateSunTimes(unixTimestamp) {
   let inputCityTimeofDay = ' AM';
 
   if (inputCityHour >= 24) {
-    console.log('input hour greater than 24')
     inputCityHour = inputCityHour - 24
     inputCityDay = days[currentDate.getDay() + 1];
     inputCityDate = currentDate.getDate() + 1;
