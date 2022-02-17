@@ -18,8 +18,19 @@ function updateSunTimes(unixTimestamp) {
   console.log('sun timestamp: ', unixTimestamp)
   let sunTimeStamp = new Date(unixTimestamp * 1000)
   console.log(sunTimeStamp)
+  let utcTime = (sunTimeStamp.getTimezoneOffset())/60;
+  console.log('utcTime: ', utcTime)
   let hour = sunTimeStamp.getHours();
   console.log(hour, 'hour')
+
+  let adjustedHour;
+  if (utcTime > 0) {
+    adjustedHour = hour + utcTime;
+  } else {
+    adjustedHour = hour - utcTime;
+  }
+
+  console.log(adjustedHour, 'adj hour *****')
   let minutes = "0" + sunTimeStamp.getMinutes();
   let timeOfDay;
 
@@ -102,9 +113,13 @@ function updateSunTimes(unixTimestamp) {
   let inputCityTimeofDay = ' AM';
 
   if (inputCityHour >= 24) {
+    console.log('input hour greater than 24')
     inputCityHour = inputCityHour - 24
     inputCityDay = days[currentDate.getDay() + 1];
     inputCityDate = currentDate.getDate() + 1;
+    if (inputCityHour >= 12) {
+      inputCityTimeofDay = ' PM'
+    }
   }
 
   if (inputCityHour < 1) {
