@@ -2,24 +2,29 @@ import {formatDayOfWeek, updateDateTime, updateSunTimes} from './formatTime'
 let tz;
 
 function parseTodaysWeatherData(cityName, data) {
-  //updateDateTime(UNIXtimeStamp, timeZoneOffset)
-  let timeZoneOff = data.timezone;
-  tz = timeZoneOff;
+
+  //Timezone from  API - Shift in seconds from UTC
+  //convert to Hours
+  let utcHoursShift = (data.timezone/3600);
+  tz = utcHoursShift;
   let weatherCode = data.weather[0].icon;
-  let formattedTimeData =  updateDateTime(data.dt, timeZoneOff)
-  let sunriseTime = updateSunTimes(data.sys.sunrise, timeZoneOff);
-  let sunsetTime = updateSunTimes(data.sys.sunset, timeZoneOff);
+  //Time of data calculation, unix, UTC
+  let formattedTimeData =  updateDateTime( utcHoursShift)
+  let sunriseTime = updateSunTimes(data.sys.sunrise, utcHoursShift);
+  let sunsetTime = updateSunTimes(data.sys.sunset, utcHoursShift);
 
   let cityData = {
     name: cityName,
-    day: formattedTimeData[2],
     desc: data.weather[0].description,
     weatherCode: weatherCode,
     weatherID: data.weather[0].id,
     weatherMain: data.weather[0].main,
-    date: formattedTimeData[0],
-    inputTime: formattedTimeData[1],
-    time: formattedTimeData[5],
+    day: formattedTimeData[2][0],
+    inputDay: formattedTimeData[2][1],
+    date: formattedTimeData[0][0],
+    inputDate: formattedTimeData[0][1],
+    time: formattedTimeData[1][0],
+    inputTime: formattedTimeData[1][1],
     humidity : Math.round(data.main.humidity),
     temp : Math.round(data.main.temp),
     tempFeels : Math.round(data.main.feels_like),
@@ -41,7 +46,7 @@ function parseTodaysWeatherData(cityName, data) {
 
 function parseFutureData(cityName, data) {
   let weatherCode = data.weather[0].icon;
-  let formattedTimeData =  updateDateTime(data.dt, tz)
+  let formattedTimeData =  updateDateTime(tz)
   let sunriseTime = updateSunTimes(data.sunrise, tz);
   let sunsetTime = updateSunTimes(data.sunset, tz);
 
@@ -52,9 +57,9 @@ function parseFutureData(cityName, data) {
     weatherCode: weatherCode,
     weatherID: data.weather[0].id,
     weatherMain: data.weather[0].main,
-    date: formattedTimeData[0],
-    inputTime: formattedTimeData[1],
-    time : formattedTimeData[5],
+    date: formattedTimeData[0][0],
+    inputTime: formattedTimeData[1][1],
+    time : formattedTimeData[1][0],
     timezone : tz,
     humidity : Math.round(data.humidity),
     temp : Math.round(data.temp.day),

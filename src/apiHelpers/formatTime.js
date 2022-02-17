@@ -10,20 +10,17 @@ function formatDayOfWeek(timestamp) {
   ];
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
+
   return week[day];
 }
 
-function updateSunTimes(unixTimestamp, timeZone) {
+function updateSunTimes(unixTimestamp, offsetHours) {
   //get locoal time offset
-  let localTZoffset = new Date(unixTimestamp * 1000).getTimezoneOffset() / 60;
   let sunTimeStamp = new Date(unixTimestamp * 1000)
   //get inputCity time offset
-  let offsetHours = (timeZone / 3600)
   let hour = sunTimeStamp.getHours();
   let minutes = "0" + sunTimeStamp.getMinutes();
   let timeOfDay;
-
-  hour = (hour + offsetHours + localTZoffset)
 
   // configure AM/PM
   if (hour >= 12) {
@@ -46,10 +43,10 @@ function updateSunTimes(unixTimestamp, timeZone) {
   return time;
 }
 
- function updateDateTime(UNIXtimeStamp, timeZoneOffset = 0 ) {
-  let offsetHours = (timeZoneOffset / 3600)
-  let currentDate = new Date()
-  let inputCityTS = new Date(UNIXtimeStamp * 1000)
+ function updateDateTime(utcHoursShift) {
+  console.log(utcHoursShift, ' offset Hrs')
+  let currentDate = new Date();
+
   let months = [
     'January',
     'February',
@@ -65,63 +62,78 @@ function updateSunTimes(unixTimestamp, timeZone) {
     'December'
   ];
 
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+
   let monthNum = currentDate.getMonth()
   let monthName = months[monthNum]
   let date = currentDate.getDate();
-  let day = formatDayOfWeek(currentDate);
+  let day = days[currentDate.getDay()];
   let hour = currentDate.getHours();
-  let min = currentDate.getMinutes();
-  let localTimeOfDay;
+  let localTimeofDay = ' AM';
+
   //if before 10am, add leading 0
   if (hour < 10) {
     hour = `0${hour}`;
   }
   // add leading 0 if minutes are below 10
+  let min = currentDate.getMinutes();
   if (min < 10) {
     min = `0${min}`;
   }
-  // configure AM/PM
   if (hour >= 13) {
-    hour = (hour - 12);
-    localTimeOfDay = 'PM'
-  } else {
-    localTimeOfDay = 'AM'
+    localTimeofDay = ' PM'
+    hour -= 12;
   }
+  let localTime = `${hour}:${min} ${localTimeofDay}`
+  let formattedDayMoDate = `${day}, ${monthName} ${date},`
 
-  let localTime = `${hour}:${min}${localTimeOfDay}`;
+//////////////////////////
+  let inputCityDate = date;
+  let inputCityDay = day;
+  let utcTime = (currentDate.getTimezoneOffset())/60;
+  console.log('utct time: ', utcTime)
+  let inputCityHour = utcTime + currentDate.getHours() + utcHoursShift;
+  console.log('first ', inputCityHour)
+  let inputCityTimeofDay = ' AM';
 
-  let utcTime = inputCityTS.getUTCHours();
-  let inputCityHour = (utcTime + offsetHours)
-  let timeOfDay;
-
-  // change to 12hr time and set AM/PM
-  if (inputCityHour >= 13) {
-    inputCityHour = inputCityHour - 12;
-    timeOfDay = 'PM'
-  } else {
-    timeOfDay = 'AM'
-  };
-  if (inputCityHour < 1) {
-    inputCityHour = 12;
-  }
-  // if next day, adjust date and day
   if (inputCityHour >= 24) {
     inputCityHour = inputCityHour - 24
-    day = (formatDayOfWeek(currentDate)) + 1;
-    date = currentDate.getDate() + 1;
+    inputCityDay = days[currentDate.getDay() + 1];
+    inputCityDate = currentDate.getDate() + 1;
   }
-  let inputCityTime = `${inputCityHour}:${min} ${timeOfDay}`
 
-  let formattedDate = `${day}, ${monthName} ${date}`
+  if (inputCityHour < 1) {
+    inputCityHour = `0${inputCityHour}`;
+  }
+
+  if (inputCityHour >= 13) {
+    inputCityTimeofDay = ' PM'
+    inputCityHour -= 12;
+  }
+
+
+  let inputCityTime = `${inputCityHour}:${min} ${inputCityTimeofDay}`;
+
+  let localFormattedFullDate =`${formattedDayMoDate} ${inputCityTime}`
+
+  let inputCityFormattedFullDate = `${inputCityDay}, ${monthName} ${inputCityDate}`
 
   let formattedDateTime = [
-    formattedDate,
-    inputCityTime,
-    day,
-    monthName,
-    date,
-    localTime,
+    [localFormattedFullDate, inputCityFormattedFullDate],
+    [localTime, inputCityTime],
+    [day, inputCityDay],
+    [monthName],
+    [date, inputCityDate],
   ]
+  console.log(formattedDateTime, 'all data')
   return formattedDateTime;
 }
 

@@ -43,9 +43,15 @@ export default function TodaysWeather ({todaysWeather, units, setUnits}) {
     <article className="TodaysWeather">
       <h1>In <span id="cityName">{todaysWeather.name.toLowerCase()}</span>, its... </h1>
       <ul>
-        <li id="inputCityDateTime">{todaysWeather.inputTime} on {todaysWeather.date}</li>
-        <li id="updatedOn">Last updated: {todaysWeather.day} at {todaysWeather.time} local time</li>
-        <li id="desc">{todaysWeather.desc}</li>
+        <li id="inputCityDateTime">
+          {todaysWeather.inputTime} on {todaysWeather.inputDate}
+        </li>
+        <li id="updatedOn">
+          Last updated: {todaysWeather.day} at {todaysWeather.time} local time
+        </li>
+        <li id="desc">
+          {todaysWeather.desc}
+        </li>
       </ul>
       <section className="row mt-3 align-items-start">
         <div className="col-6">
